@@ -1,12 +1,14 @@
-// ignore_for_file: prefer_const_constructors, use_key_in_widget_constructors, prefer_const_literals_to_create_immutables, sized_box_for_whitespace, must_be_immutable, unused_local_variable
+// ignore_for_file: prefer_const_constructors, use_key_in_widget_constructors, prefer_const_literals_to_create_immutables, sized_box_for_whitespace, must_be_immutable, unused_local_variable, unused_field, prefer_final_fields
 
 import 'package:flutter/material.dart';
 import 'package:flutter_speed_dial/flutter_speed_dial.dart';
+import 'package:mess_manager/pages/add_meal_page.dart';
 import 'package:mess_manager/providers/meal_provider.dart';
 import 'package:provider/provider.dart';
 import '../untils/custom_colors.dart';
 import '../widgets/custom_container_widget.dart';
 import '../widgets/custom_row_widget.dart';
+import '../widgets/drawer_widget.dart';
 
 class HomePage extends StatefulWidget {
   static const routeName = '/home-page';
@@ -16,6 +18,8 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
+
   @override
   Widget build(BuildContext context) {
     Color myBGColor = Provider.of<MealProvider>(context).isDark
@@ -26,6 +30,8 @@ class _HomePageState extends State<HomePage> {
         : Colors.black;
     return Scaffold(
       backgroundColor: myBGColor,
+      key: _scaffoldKey,
+      drawer: DrawerWidget(),
       body: SafeArea(
         child: Column(
           children: [
@@ -38,14 +44,20 @@ class _HomePageState extends State<HomePage> {
                   borderRadius: BorderRadius.circular(15),
                   color: CustomColors.appColor,
                 ),
+                // TODO custom app bar start 
                 child: Row(
                   children: [
                     SizedBox(width: 20),
-                    Image.asset(
-                      'images/menu.png',
-                      height: 25,
-                      width: 25,
-                      fit: BoxFit.cover,
+                    InkWell(
+                      onTap: () {
+                        _scaffoldKey.currentState?.openDrawer();
+                      },
+                      child: Image.asset(
+                        'images/menu.png',
+                        height: 25,
+                        width: 25,
+                        fit: BoxFit.cover,
+                      ),
                     ),
                     SizedBox(width: 30),
                     Column(
@@ -91,6 +103,7 @@ class _HomePageState extends State<HomePage> {
             Expanded(
               child: ListView(
                 children: [
+                  // TODO mess calculation ndetails start 
                   Padding(
                     padding:
                         const EdgeInsets.symmetric(horizontal: 20, vertical: 8),
@@ -152,6 +165,7 @@ class _HomePageState extends State<HomePage> {
                       ],
                     ),
                   ),
+                  // TODO personal informations card start
                   Container(
                     height: 170,
                     padding: EdgeInsets.only(left: 2, right: 2),
@@ -234,12 +248,15 @@ class _HomePageState extends State<HomePage> {
                       ),
                     ),
                   ),
+                  // TODO total members details start 
+                  
                 ],
               ),
             ),
           ],
         ),
       ),
+      // TODO floating action button start 
       floatingActionButton: SpeedDial(
         icon: Icons.add,
         activeIcon: Icons.add,
@@ -253,6 +270,9 @@ class _HomePageState extends State<HomePage> {
         curve: Curves.bounceIn,
         children: [
           SpeedDialChild(
+            onTap: () {
+              Navigator.of(context).pushNamed(AddMealPage.routeName);
+            },
             backgroundColor: CustomColors.appColor,
             labelBackgroundColor: CustomColors.appColor,
             child: Icon(

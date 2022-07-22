@@ -3,6 +3,8 @@ import 'package:mess_manager/pages/home_page.dart';
 import 'package:mess_manager/providers/meal_provider.dart';
 import 'package:provider/provider.dart';
 
+import 'pages/add_meal_page.dart';
+
 void main() {
   runApp(
     MultiProvider(
@@ -28,6 +30,7 @@ class MyApp extends StatelessWidget {
       initialRoute: HomePage.routeName,
       routes: {
         HomePage.routeName: (context) => HomePage(),
+        AddMealPage.routeName: (context) => AddMealPage(),
       },
     );
   }
