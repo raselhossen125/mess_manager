@@ -3,6 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_speed_dial/flutter_speed_dial.dart';
 import 'package:mess_manager/pages/add_meal_page.dart';
+import 'package:mess_manager/pages/add_member_money_page.dart';
 import 'package:mess_manager/providers/meal_provider.dart';
 import 'package:provider/provider.dart';
 import '../untils/custom_colors.dart';
@@ -297,10 +298,13 @@ class _HomePageState extends State<HomePage> {
             labelStyle: TextStyle(color: CustomColors.iconColor),
           ),
           SpeedDialChild(
+            onTap: () {
+              Navigator.of(context).pushNamed(AddMemberMoneyPage.routeName);
+            },
             backgroundColor: CustomColors.appColor,
             labelBackgroundColor: CustomColors.appColor,
             child: Icon(
-              Icons.money,
+              Icons.paid,
               color: CustomColors.iconColor,
             ),
             label: 'Add Members Money',

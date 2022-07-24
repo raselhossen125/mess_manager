@@ -1,6 +1,7 @@
 // ignore_for_file: prefer_const_constructors, prefer_const_constructors_in_immutables, use_key_in_widget_constructors
 
 import 'package:flutter/material.dart';
+import 'package:mess_manager/untils/custom_colors.dart';
 
 class DrawerListTileWidget extends StatelessWidget {
   final IconData icon;
@@ -20,7 +21,7 @@ class DrawerListTileWidget extends StatelessWidget {
       child: ListTile(
         leading: Icon(
           icon,
-          color: Colors.black,
+          color: CustomColors.appColor,
         ),
         title: Text(text),
       ),

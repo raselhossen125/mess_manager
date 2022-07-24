@@ -1,6 +1,7 @@
 // ignore_for_file: prefer_const_constructors, sized_box_for_whitespace, prefer_const_literals_to_create_immutables, unused_local_variable
 
 import 'package:flutter/material.dart';
+import 'package:mess_manager/pages/add_member_money_page.dart';
 import 'package:mess_manager/pages/home_page.dart';
 import 'package:mess_manager/untils/custom_colors.dart';
 
@@ -85,11 +86,13 @@ class DrawerWidget extends StatelessWidget {
                     },
                   ),
                   DrawerListTileWidget(
-                    icon: Icons.money,
+                    icon: Icons.paid,
                     text: 'Add Member Money',
                     onPressed: () {
-                      Navigator.of(context)
+                      Navigator.of(context).pushNamed(AddMemberMoneyPage.routeName).then((value) {
+                        Navigator.of(context)
                           .pushReplacementNamed(HomePage.routeName);
+                      });
                     },
                   ),
                   DrawerListTileWidget(

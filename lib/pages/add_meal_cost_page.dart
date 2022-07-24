@@ -6,14 +6,9 @@ import 'package:mess_manager/providers/meal_provider.dart';
 import 'package:mess_manager/untils/custom_colors.dart';
 import 'package:provider/provider.dart';
 
-class AddMealCostPage extends StatefulWidget {
+class AddMealCostPage extends StatelessWidget {
   static const routeName = '/addMealCost-page';
 
-  @override
-  State<AddMealCostPage> createState() => _AddMealCostPageState();
-}
-
-class _AddMealCostPageState extends State<AddMealCostPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -23,7 +18,7 @@ class _AddMealCostPageState extends State<AddMealCostPage> {
       ),
       body: Center(
         child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 15),
+          padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 15),
           child: SingleChildScrollView(
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
@@ -45,7 +40,7 @@ class _AddMealCostPageState extends State<AddMealCostPage> {
                 SizedBox(height: 15),
                 InkWell(
                   onTap: () {
-                    Provider.of<MealProvider>(context).showDatePickerDialog(context);
+                    Provider.of<MealProvider>(context, listen: false).showDatePickerDialog(context);
                   },
                   child: Container(
                     height: 50,
@@ -107,7 +102,7 @@ class _AddMealCostPageState extends State<AddMealCostPage> {
                 ),
                 SizedBox(height: 15),
                 Container(
-                  padding: EdgeInsets.symmetric(horizontal: 20),
+                  padding: EdgeInsets.symmetric(horizontal: 15),
                   height: 50,
                   width: double.infinity,
                   decoration: BoxDecoration(
@@ -160,6 +155,4 @@ class _AddMealCostPageState extends State<AddMealCostPage> {
       ),
     );
   }
-
-  
 }

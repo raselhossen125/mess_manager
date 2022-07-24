@@ -12,7 +12,7 @@ class MealProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  void showDatePickerDialog(BuildContext context) async {
+  Future<void>showDatePickerDialog(BuildContext context) async {
     DateTime? selectedDate = await showDatePicker(
       context: context,
       initialDate: DateTime.now(),
