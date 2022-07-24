@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:mess_manager/pages/home_page.dart';
 import 'package:mess_manager/untils/custom_colors.dart';
 
+import '../pages/add_meal_cost_page.dart';
 import '../pages/add_meal_page.dart';
 import 'drawer_listTile_widget.dart';
 
@@ -107,8 +108,11 @@ class DrawerWidget extends StatelessWidget {
                     icon: Icons.shopping_cart,
                     text: 'Add Meal Cost',
                     onPressed: () {
-                      Navigator.of(context)
+                      Navigator.of(context).pushNamed(AddMealCostPage.routeName).then((value) {
+                        Navigator.of(context)
                           .pushReplacementNamed(HomePage.routeName);
+                      });
+                      
                     },
                   ),
                   DrawerListTileWidget(

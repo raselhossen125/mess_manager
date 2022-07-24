@@ -9,6 +9,7 @@ import '../untils/custom_colors.dart';
 import '../widgets/custom_container_widget.dart';
 import '../widgets/custom_row_widget.dart';
 import '../widgets/drawer_widget.dart';
+import 'add_meal_cost_page.dart';
 
 class HomePage extends StatefulWidget {
   static const routeName = '/home-page';
@@ -26,7 +27,7 @@ class _HomePageState extends State<HomePage> {
         ? Colors.black
         : Colors.white.withOpacity(0.9);
     Color myColor = Provider.of<MealProvider>(context).isDark
-        ? Colors.white.withOpacity(0.8)
+        ? Colors.white
         : Colors.black;
     return Scaffold(
       backgroundColor: myBGColor,
@@ -69,7 +70,7 @@ class _HomePageState extends State<HomePage> {
                           style: TextStyle(
                               fontWeight: FontWeight.bold,
                               fontSize: 20,
-                              color: CustomColors.iconColor.withOpacity(0.9)),
+                              color: CustomColors.iconColor),
                         ),
                         SizedBox(height: 3),
                         Text(
@@ -77,7 +78,7 @@ class _HomePageState extends State<HomePage> {
                           style: TextStyle(
                               fontWeight: FontWeight.bold,
                               fontSize: 16,
-                              color: CustomColors.iconColor.withOpacity(0.9)),
+                              color: CustomColors.iconColor),
                         ),
                       ],
                     ),
@@ -283,6 +284,9 @@ class _HomePageState extends State<HomePage> {
             labelStyle: TextStyle(color: CustomColors.iconColor),
           ),
           SpeedDialChild(
+            onTap: () {
+              Navigator.of(context).pushNamed(AddMealCostPage.routeName);
+            },
             backgroundColor: CustomColors.appColor,
             labelBackgroundColor: CustomColors.appColor,
             child: Icon(
