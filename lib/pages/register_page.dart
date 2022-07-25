@@ -4,9 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:mess_manager/models/register_model.dart';
 import 'package:mess_manager/pages/home_page.dart';
 import 'package:mess_manager/pages/login_page.dart';
-import 'package:mess_manager/providers/meal_provider.dart';
 import 'package:provider/provider.dart';
-
+import '../providers/db_provider.dart';
 import '../untils/custom_colors.dart';
 
 class RegisterPage extends StatefulWidget {
@@ -49,16 +48,16 @@ class _RegisterPageState extends State<RegisterPage> {
               mainAxisSize: MainAxisSize.min,
               children: [
                 Container(
-                  height: 60,
-                  width: 60,
+                  height: 80,
+                  width: 80,
                   decoration: BoxDecoration(
                     border: Border.all(width: 2, color: CustomColors.appColor),
                     borderRadius: BorderRadius.circular(100), //<-- SEE HERE
                   ),
-                  child: Image.asset('images/person-icon.png'),
+                  child: Image.asset('images/R.png'),
                 ),
-                const SizedBox(height: 10),
-                const Text(
+                const SizedBox(height: 20),
+                Text(
                   'Sign Up As Mess Manager',
                   style: TextStyle(
                     color: CustomColors.appColor,
@@ -107,7 +106,7 @@ class _RegisterPageState extends State<RegisterPage> {
                           return null;
                         },
                       ),
-                      SizedBox(height: 10),
+                      SizedBox(height: 15),
                       TextFormField(
                         controller: emailController,
                         cursorColor: CustomColors.appColor,
@@ -141,7 +140,7 @@ class _RegisterPageState extends State<RegisterPage> {
                           return null;
                         },
                       ),
-                      SizedBox(height: 10),
+                      SizedBox(height: 15),
                       TextFormField(
                         controller: passwordController,
                         obscureText: passObsecure,
@@ -188,7 +187,7 @@ class _RegisterPageState extends State<RegisterPage> {
                           return null;
                         },
                       ),
-                      SizedBox(height: 10),
+                      SizedBox(height: 15),
                       TextFormField(
                         obscureText: conPassObsecure,
                         controller: conformPasswordController,
@@ -243,7 +242,7 @@ class _RegisterPageState extends State<RegisterPage> {
                           style: TextStyle(color: Colors.red, fontSize: 12),
                         ),
                       ),
-                      const SizedBox(height: 20),
+                      const SizedBox(height: 12),
                     ],
                   ),
                 ),
@@ -317,7 +316,7 @@ class _RegisterPageState extends State<RegisterPage> {
           confPassword: conformPasswordController.text,
         );
         print(register.toString());
-        final status = await Provider.of<MealProvider>(context, listen: false)
+        final status = await Provider.of<DBProvider>(context, listen: false)
             .addNewRegister(register);
         if (status) {
           Navigator.pushReplacementNamed(context, HomePage.routeName);

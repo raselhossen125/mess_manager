@@ -3,6 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:mess_manager/pages/add_member_money_page.dart';
 import 'package:mess_manager/pages/home_page.dart';
+import 'package:mess_manager/pages/login_page.dart';
 import 'package:mess_manager/untils/custom_colors.dart';
 
 import '../pages/add_meal_cost_page.dart';
@@ -193,7 +194,9 @@ class DrawerWidget extends StatelessWidget {
                               fontWeight: FontWeight.bold,
                               color: CustomColors.appColor),
                         ),
-                        onPressed: () {},
+                        onPressed: () {
+                          Navigator.of(context).pushReplacementNamed(LogInPage.routeName);
+                        },
                       ),
                     ),
                   ),

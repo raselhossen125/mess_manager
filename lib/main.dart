@@ -11,13 +11,14 @@ import 'pages/add_meal_cost_page.dart';
 import 'pages/add_meal_page.dart';
 import 'pages/add_member_money_page.dart';
 import 'pages/forgetpassword_page.dart';
-import 'untils/custom_colors.dart';
+import 'providers/db_provider.dart';
 
 void main() {
   runApp(
     MultiProvider(
       providers: [
         ChangeNotifierProvider(create: (context) => MealProvider()),
+        ChangeNotifierProvider(create: (context) => DBProvider()),
       ],
       child: const MyApp(),
     ),

@@ -2,15 +2,11 @@
 
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import 'package:mess_manager/db/db_helper.dart';
-import 'package:mess_manager/models/register_model.dart';
 
 class MealProvider extends ChangeNotifier {
   bool isDark = false;
   String? pickeddate;
   double chipValue = 0.0;
-
-  List<RegisterModel> registerList = [];
 
   String? latestValue;
   String dpSelectedItems = 'Leo Mesi';
@@ -61,15 +57,4 @@ class MealProvider extends ChangeNotifier {
     }
     notifyListeners();
   }
-
-  Future<bool> addNewRegister(RegisterModel registerModel) async {
-    final rowId = await DBHelper.insertRegister(registerModel);
-    if (rowId > 0) {
-      registerModel.id = rowId;
-      registerList.add(registerModel);
-      return true;
-    }
-    return false;
-  }
-
 }
