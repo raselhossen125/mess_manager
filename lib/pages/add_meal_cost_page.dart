@@ -76,23 +76,24 @@ class AddMealCostPage extends StatelessWidget {
                   ),
                 ),
                 SizedBox(height: 15),
-                TextField(
+                TextFormField(
                   cursorColor: CustomColors.appColor,
                   keyboardType: TextInputType.number,
-                  decoration: InputDecoration(
-                    contentPadding: EdgeInsets.symmetric(horizontal: 15),
-                    hintText: "Enter Cost Amount",
-                    hintStyle: TextStyle(color: Colors.grey),
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(15),
-                      borderSide: BorderSide(
-                        color: Colors.white.withOpacity(0.9),
-                      ),
-                    ),
-                  ),
                   style: TextStyle(
-                    color: CustomColors.appColor,
-                    fontWeight: FontWeight.w600,
+                      color: CustomColors.appColor,
+                      fontWeight: FontWeight.w500),
+                  decoration: InputDecoration(
+                    filled: true,
+                    fillColor: Colors.white,
+                    contentPadding: EdgeInsets.only(left: 20),
+                    focusColor: Colors.white,
+                    hintText: "Enter Cost Amount",
+                    hintStyle: TextStyle(
+                        color: Colors.grey, fontWeight: FontWeight.normal),
+                    border: OutlineInputBorder(
+                      borderSide: BorderSide.none,
+                      borderRadius: BorderRadius.circular(20),
+                    ),
                   ),
                 ),
                 SizedBox(height: 15),

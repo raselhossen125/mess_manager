@@ -35,7 +35,8 @@ class AddMemberMoneyPage extends StatelessWidget {
                 SizedBox(height: 15),
                 InkWell(
                   onTap: () {
-                    Provider.of<MealProvider>(context, listen: false).showDatePickerDialog(context);
+                    Provider.of<MealProvider>(context, listen: false)
+                        .showDatePickerDialog(context);
                   },
                   child: Container(
                     height: 50,
@@ -55,7 +56,8 @@ class AddMemberMoneyPage extends StatelessWidget {
                         Consumer<MealProvider>(
                           builder: (context, provider, _) => Text(
                             provider.pickeddate == null
-                                ? DateFormat('dd/MM/yyyy').format(DateTime.now())
+                                ? DateFormat('dd/MM/yyyy')
+                                    .format(DateTime.now())
                                 : provider.pickeddate!,
                             style: TextStyle(
                               fontWeight: FontWeight.bold,
@@ -69,23 +71,24 @@ class AddMemberMoneyPage extends StatelessWidget {
                   ),
                 ),
                 SizedBox(height: 15),
-                TextField(
+                TextFormField(
                   cursorColor: CustomColors.appColor,
                   keyboardType: TextInputType.number,
-                  decoration: InputDecoration(
-                    contentPadding: EdgeInsets.symmetric(horizontal: 15),
-                    hintText: "Enter Deposit Amount",
-                    hintStyle: TextStyle(color: Colors.grey),
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(15),
-                      borderSide: BorderSide(
-                        color: Colors.white.withOpacity(0.9),
-                      ),
-                    ),
-                  ),
                   style: TextStyle(
-                    color: CustomColors.appColor,
-                    fontWeight: FontWeight.w600,
+                      color: CustomColors.appColor,
+                      fontWeight: FontWeight.w500),
+                  decoration: InputDecoration(
+                    filled: true,
+                    fillColor: Colors.white,
+                    contentPadding: EdgeInsets.only(left: 20),
+                    focusColor: Colors.white,
+                    hintText: "Enter Deposit Amount",
+                    hintStyle: TextStyle(
+                        color: Colors.grey, fontWeight: FontWeight.normal),
+                    border: OutlineInputBorder(
+                      borderSide: BorderSide.none,
+                      borderRadius: BorderRadius.circular(20),
+                    ),
                   ),
                 ),
                 SizedBox(height: 15),
@@ -102,25 +105,27 @@ class AddMemberMoneyPage extends StatelessWidget {
                     color: Colors.white,
                   ),
                   child: Align(
-                    alignment: Alignment.centerLeft,
-                    child: Row(
-                      children: [
-                        CircleAvatar(
-                          radius: 15,
-                          child: Image.asset('images/R.png', fit: BoxFit.cover,),
-                        ),
-                        SizedBox(width: 10),
-                        Text(
-                          'Leo Messi',
-                          style: TextStyle(
-                              fontWeight: FontWeight.w400,
-                              color: Colors.black,
-                              fontSize: 18),
-                        ),
-                        Spacer(),
-                      ],
-                    )
-                  ),
+                      alignment: Alignment.centerLeft,
+                      child: Row(
+                        children: [
+                          CircleAvatar(
+                            radius: 15,
+                            child: Image.asset(
+                              'images/R.png',
+                              fit: BoxFit.cover,
+                            ),
+                          ),
+                          SizedBox(width: 10),
+                          Text(
+                            'Leo Messi',
+                            style: TextStyle(
+                                fontWeight: FontWeight.w400,
+                                color: Colors.black,
+                                fontSize: 18),
+                          ),
+                          Spacer(),
+                        ],
+                      )),
                 ),
                 SizedBox(height: 15),
                 Container(
