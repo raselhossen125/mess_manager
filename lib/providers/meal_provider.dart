@@ -7,9 +7,10 @@ class MealProvider extends ChangeNotifier {
   bool isDark = false;
   String? pickeddate;
   double chipValue = 0.0;
-
+  bool isLogedIn = false;
   String? latestValue;
   String dpSelectedItems = 'Leo Mesi';
+
   var dropdown_items = [
     'Leo Mesi',
     'Ronaldo',
@@ -23,6 +24,11 @@ class MealProvider extends ChangeNotifier {
   dropDownItemChange(String? newValue) {
     dpSelectedItems = newValue!;
     latestValue = newValue;
+    notifyListeners();
+  }
+
+  LogedIn(bool logInStatus) {
+    isLogedIn = logInStatus;
     notifyListeners();
   }
 

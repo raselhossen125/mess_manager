@@ -2,6 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:mess_manager/pages/add_member_money_page.dart';
+import 'package:mess_manager/pages/add_member_page.dart';
 import 'package:mess_manager/pages/home_page.dart';
 import 'package:mess_manager/pages/login_page.dart';
 import 'package:mess_manager/untils/custom_colors.dart';
@@ -80,10 +81,12 @@ class DrawerWidget extends StatelessWidget {
                   ),
                   DrawerListTileWidget(
                     icon: Icons.person_add,
-                    text: 'Add New Member',
+                    text: 'Add Member',
                     onPressed: () {
-                      Navigator.of(context)
-                          .pushReplacementNamed(HomePage.routeName);
+                      Navigator.of(context).pushNamed(AddMemberPage.routeName).then((value) {
+                        Navigator.of(context)
+                            .pushReplacementNamed(HomePage.routeName);
+                      });
                     },
                   ),
                   DrawerListTileWidget(

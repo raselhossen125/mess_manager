@@ -10,7 +10,9 @@ import 'package:provider/provider.dart';
 import 'pages/add_meal_cost_page.dart';
 import 'pages/add_meal_page.dart';
 import 'pages/add_member_money_page.dart';
+import 'pages/add_member_page.dart';
 import 'pages/forgetpassword_page.dart';
+import 'pages/splashscreen_page.dart';
 import 'providers/db_provider.dart';
 
 void main() {
@@ -49,8 +51,9 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: pokeballRed,
       ),
-      initialRoute: LogInPage.routeName,
+      initialRoute: SplashScreen.routeName,
       routes: {
+        SplashScreen.routeName: (context) => SplashScreen(),
         LogInPage.routeName: (context) => LogInPage(),
         RegisterPage.routeName: (context) => RegisterPage(),
         ForgetPasswordPage.routeName: (context) => ForgetPasswordPage(),
@@ -58,6 +61,7 @@ class MyApp extends StatelessWidget {
         AddMealPage.routeName: (context) => AddMealPage(),
         AddMealCostPage.routeName: (context) => AddMealCostPage(),
         AddMemberMoneyPage.routeName: (context) => AddMemberMoneyPage(),
+        AddMemberPage.routeName: (context) => AddMemberPage(),
       },
     );
   }

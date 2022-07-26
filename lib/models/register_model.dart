@@ -1,5 +1,7 @@
+import 'addMember_models.dart';
+
 const String tableRegister = 'tbl_register';
-const String tableRegisterColId = 'id';
+const String tableRegisterColId = 'manager_id';
 const String tableRegisterColName = 'managerName';
 const String tableRegisterColEmail = 'managerEmail';
 const String tableRegisterColPassword = 'password';
