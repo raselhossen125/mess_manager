@@ -149,9 +149,6 @@ class _LogInPageState extends State<LogInPage> {
               Consumer<DBProvider>(
                 builder: (context, provider, _) => InkWell(
                   onTap: () {
-                    // setState(() {
-                    //   isLoading = true;
-                    // });
                     provider.getRegisterPersonByGmail(
                       email_Controller.text,
                       context,
@@ -159,13 +156,14 @@ class _LogInPageState extends State<LogInPage> {
                     if (provider.logedInList.isNotEmpty) {
                       if (provider.logedInList[0].password ==
                           password_Controller.text) {
-                        Provider.of<MealProvider>(context, listen: false).setLogInStatus(true);
+                        int? managerId = provider.logedInList[0].id;
+                        Provider.of<MealProvider>(context, listen: false)
+                            .setLogInStatus(true);
+                        Provider.of<MealProvider>(context, listen: false)
+                            .setManagerId(managerId!);
                         Navigator.of(context)
                             .pushReplacementNamed(HomePage.routeName);
                       }
-                      // setState(() {
-                      //   isLoading = false;
-                      // });
                     }
                     return null;
                   },
@@ -176,10 +174,10 @@ class _LogInPageState extends State<LogInPage> {
                       borderRadius: BorderRadius.circular(15),
                       color: CustomColors.appColor,
                     ),
-                    child:  Center(
+                    child: Center(
                       child:
-                      // isLoading ? CircularProgressIndicator(color: Colors.white,) :
-                      Text(
+                          // isLoading ? CircularProgressIndicator(color: Colors.white,) :
+                          Text(
                         'Log In',
                         style: TextStyle(
                             fontWeight: FontWeight.w600,

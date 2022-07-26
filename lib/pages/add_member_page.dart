@@ -1,12 +1,12 @@
 
 
-// ignore_for_file: use_build_context_synchronously, avoid_print, use_key_in_widget_constructors
+// ignore_for_file: use_build_context_synchronously, avoid_print, use_key_in_widget_constructors, unused_local_variable, must_be_immutable
 
 import 'package:flutter/material.dart';
 import 'package:mess_manager/models/addMember_models.dart';
 import 'package:mess_manager/providers/db_provider.dart';
+import 'package:mess_manager/providers/meal_provider.dart';
 import 'package:provider/provider.dart';
-
 import '../untils/custom_colors.dart';
 
 class AddMemberPage extends StatelessWidget {
@@ -15,8 +15,11 @@ class AddMemberPage extends StatelessWidget {
   final nameController = TextEditingController();
   final emailController = TextEditingController();
 
+  int? mId;
+
   @override
   Widget build(BuildContext context) {
+    getId(context);
     return Scaffold(
       backgroundColor: Colors.white.withOpacity(0.9),
       appBar: AppBar(
@@ -130,11 +133,15 @@ class AddMemberPage extends StatelessWidget {
     );
   }
 
+  getId(BuildContext context) async{
+    mId = await Provider.of<MealProvider>(context, listen: false).getManagerId();
+  }
+
   void saveAddMember(BuildContext context) async{
     var member = AddMemberModel(
       name: nameController.text,
       email: emailController.text,
-      managerId: 5,
+      managerId: mId!,
     );
     print(member.toString());
     final status = await Provider.of<DBProvider>(context, listen: false)

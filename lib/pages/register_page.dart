@@ -319,7 +319,7 @@ class _RegisterPageState extends State<RegisterPage> {
         );
         print(register.toString());
         final status = await Provider.of<DBProvider>(context, listen: false)
-            .addNewRegister(register);
+            .addNewRegister(register, context);
         if (status) {
           Provider.of<MealProvider>(context, listen: false).setLogInStatus(true);
           Navigator.pushReplacementNamed(context, HomePage.routeName);

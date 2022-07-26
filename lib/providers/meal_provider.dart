@@ -37,6 +37,16 @@ class MealProvider extends ChangeNotifier {
     return pref.getBool("isLoggedIn") ?? false;
   }
 
+  setManagerId(int managerId) async {
+    final pref = await SharedPreferences.getInstance();
+    return pref.setInt("managerId", managerId);
+  }
+
+  getManagerId() async{
+    final pref = await SharedPreferences.getInstance();
+    return pref.getInt("managerId");
+  }
+
   updateDarkMode() {
     isDark = !isDark;
     notifyListeners();
