@@ -25,11 +25,8 @@ class DBProvider extends ChangeNotifier {
     return false;
   }
 
-  getRegisterPersonByGmail(String gmail, BuildContext context) async{
-    DBHelper.getRegisterPersonByGmail(gmail).then((value) {
-      logedInList = value;
-      notifyListeners();
-    });
+  Future<RegisterModel>getRegisterPersonByGmail(String gmail, BuildContext context) async{
+    return DBHelper.getRegisterPersonByGmail(gmail);
   }
 
   List<AddMemberModel> memberList = [];

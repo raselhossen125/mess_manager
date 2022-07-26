@@ -1,6 +1,7 @@
-// ignore_for_file: use_key_in_widget_constructors, prefer_const_constructors, non_constant_identifier_names, unused_local_variable, prefer_const_literals_to_create_immutables, avoid_returning_null_for_void
+// ignore_for_file: use_key_in_widget_constructors, prefer_const_constructors, non_constant_identifier_names, unused_local_variable, prefer_const_literals_to_create_immutables, avoid_returning_null_for_void, unnecessary_cast, use_build_context_synchronously
 
 import 'package:flutter/material.dart';
+import 'package:mess_manager/models/register_model.dart';
 import 'package:mess_manager/pages/forgetpassword_page.dart';
 import 'package:mess_manager/pages/home_page.dart';
 import 'package:mess_manager/pages/register_page.dart';
@@ -20,7 +21,7 @@ class LogInPage extends StatefulWidget {
 class _LogInPageState extends State<LogInPage> {
   bool passObsecure = true;
   bool isLoading = false;
-  String value = '';
+  String error = '';
 
   final email_Controller = TextEditingController();
   final password_Controller = TextEditingController();
@@ -88,6 +89,7 @@ class _LogInPageState extends State<LogInPage> {
                 style: TextStyle(
                     color: CustomColors.appColor, fontWeight: FontWeight.w500),
                 decoration: InputDecoration(
+                  errorText: error,
                   filled: true,
                   fillColor: Colors.white,
                   contentPadding: EdgeInsets.only(left: 10),
@@ -116,74 +118,58 @@ class _LogInPageState extends State<LogInPage> {
                   ),
                 ),
               ),
-              const SizedBox(height: 10),
-              Column(
-                children: [
-                  Align(
-                    alignment: Alignment.centerLeft,
-                    child: Text(
-                      value,
-                      style: TextStyle(
-                        color: Colors.red,
-                      ),
+              InkWell(
+                onTap: () {
+                  Navigator.of(context)
+                      .pushNamed(ForgetPasswordPage.routeName);
+                },
+                child: Align(
+                  alignment: Alignment.topRight,
+                  child: Text(
+                    'Forgot Password?',
+                    style: TextStyle(
+                      color: Colors.red,
                     ),
                   ),
-                  InkWell(
-                    onTap: () {
-                      Navigator.of(context)
-                          .pushNamed(ForgetPasswordPage.routeName);
-                    },
-                    child: Align(
-                      alignment: Alignment.centerRight,
-                      child: Text(
-                        'Forgot Password?',
-                        style: TextStyle(
-                          color: Colors.red,
-                        ),
-                      ),
-                    ),
-                  ),
-                ],
+                ),
               ),
-              const SizedBox(height: 20),
-              Consumer<DBProvider>(
-                builder: (context, provider, _) => InkWell(
-                  onTap: () {
-                    provider.getRegisterPersonByGmail(
-                      email_Controller.text,
-                      context,
-                    );
-                    if (provider.logedInList.isNotEmpty) {
-                      if (provider.logedInList[0].password ==
-                          password_Controller.text) {
-                        int? managerId = provider.logedInList[0].id;
-                        Provider.of<MealProvider>(context, listen: false)
-                            .setLogInStatus(true);
-                        Provider.of<MealProvider>(context, listen: false)
-                            .setManagerId(managerId!);
-                        Navigator.of(context)
-                            .pushReplacementNamed(HomePage.routeName);
-                      }
-                    }
-                    return null;
-                  },
-                  child: Container(
-                    height: 50,
-                    width: double.infinity,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(15),
-                      color: CustomColors.appColor,
-                    ),
-                    child: Center(
-                      child:
-                          // isLoading ? CircularProgressIndicator(color: Colors.white,) :
-                          Text(
-                        'Log In',
-                        style: TextStyle(
-                            fontWeight: FontWeight.w600,
-                            color: Colors.white,
-                            fontSize: 18),
-                      ),
+              const SizedBox(height: 30),
+              InkWell(
+                onTap: () async {
+                  RegisterModel model =
+                      await Provider.of<DBProvider>(context, listen: false)
+                          .getRegisterPersonByGmail(
+                              email_Controller.text, context) as RegisterModel;
+                  if (model.password == password_Controller.text) {
+                    int? managerId = model.id;
+                    Provider.of<MealProvider>(context, listen: false)
+                        .setLogInStatus(true);
+                    Provider.of<MealProvider>(context, listen: false)
+                        .setManagerId(managerId!);
+                    Navigator.of(context)
+                        .pushReplacementNamed(HomePage.routeName);
+                  } else {
+                    setState(() {
+                      error = 'Invalid email or password';
+                    });
+                  }
+                },
+                child: Container(
+                  height: 50,
+                  width: double.infinity,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(15),
+                    color: CustomColors.appColor,
+                  ),
+                  child: Center(
+                    child:
+                        // isLoading ? CircularProgressIndicator(color: Colors.white,) :
+                        Text(
+                      'Log In',
+                      style: TextStyle(
+                          fontWeight: FontWeight.w600,
+                          color: Colors.white,
+                          fontSize: 18),
                     ),
                   ),
                 ),
