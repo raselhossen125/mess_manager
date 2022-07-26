@@ -2,12 +2,12 @@
 
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class MealProvider extends ChangeNotifier {
   bool isDark = false;
   String? pickeddate;
   double chipValue = 0.0;
-  bool isLogedIn = false;
   String? latestValue;
   String dpSelectedItems = 'Leo Mesi';
 
@@ -27,9 +27,14 @@ class MealProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  LogedIn(bool logInStatus) {
-    isLogedIn = logInStatus;
-    notifyListeners();
+  Future<bool> setLogInStatus(bool ststus) async {
+    final pref = await SharedPreferences.getInstance();
+    return pref.setBool("isLoggedIn", ststus);
+  }
+
+  Future<bool> getLogInStatus() async {
+    final pref = await SharedPreferences.getInstance();
+    return pref.getBool("isLoggedIn") ?? false;
   }
 
   updateDarkMode() {
@@ -37,7 +42,7 @@ class MealProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  Future<void>showDatePickerDialog(BuildContext context) async {
+  Future<void> showDatePickerDialog(BuildContext context) async {
     DateTime? selectedDate = await showDatePicker(
       context: context,
       initialDate: DateTime.now(),
@@ -58,7 +63,7 @@ class MealProvider extends ChangeNotifier {
   }
 
   decrementMeal() {
-    if(chipValue!=0.0) {
+    if (chipValue != 0.0) {
       chipValue = chipValue - 0.5;
     }
     notifyListeners();

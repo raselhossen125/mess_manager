@@ -6,9 +6,11 @@ import 'package:mess_manager/pages/add_member_page.dart';
 import 'package:mess_manager/pages/home_page.dart';
 import 'package:mess_manager/pages/login_page.dart';
 import 'package:mess_manager/untils/custom_colors.dart';
+import 'package:provider/provider.dart';
 
 import '../pages/add_meal_cost_page.dart';
 import '../pages/add_meal_page.dart';
+import '../providers/meal_provider.dart';
 import 'drawer_listTile_widget.dart';
 
 class DrawerWidget extends StatelessWidget {
@@ -198,6 +200,7 @@ class DrawerWidget extends StatelessWidget {
                               color: CustomColors.appColor),
                         ),
                         onPressed: () {
+                          Provider.of<MealProvider>(context, listen: false).setLogInStatus(false);
                           Navigator.of(context).pushReplacementNamed(LogInPage.routeName);
                         },
                       ),

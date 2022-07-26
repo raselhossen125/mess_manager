@@ -1,7 +1,10 @@
-// ignore_for_file: use_key_in_widget_constructors, prefer_const_constructors
+// ignore_for_file: use_key_in_widget_constructors, prefer_const_constructors, unused_local_variable
 
 import 'dart:async';
 import 'package:flutter/material.dart';
+import 'package:mess_manager/pages/home_page.dart';
+import 'package:mess_manager/providers/meal_provider.dart';
+import 'package:provider/provider.dart';
 import '../untils/custom_colors.dart';
 import 'login_page.dart';
 
@@ -15,10 +18,7 @@ class SplashScreen extends StatefulWidget {
 class _SplashScreenState extends State<SplashScreen> {
   @override
   void initState() {
-    Timer(
-      Duration(milliseconds: 2000),
-      () => Navigator.of(context).pushReplacementNamed(LogInPage.routeName),
-    );
+    init();
     super.initState();
   }
 
@@ -54,6 +54,19 @@ class _SplashScreenState extends State<SplashScreen> {
           ),
         ),
       ),
+    );
+  }
+
+  init() {
+    Timer(
+      Duration(milliseconds: 2000),
+      () => Provider.of<MealProvider>(context, listen: false)
+          .getLogInStatus()
+          .then((value) {
+        value
+            ? Navigator.of(context).pushReplacementNamed(HomePage.routeName)
+            : Navigator.of(context).pushReplacementNamed(LogInPage.routeName);
+      }),
     );
   }
 }

@@ -1,9 +1,10 @@
 
 
+// ignore_for_file: use_build_context_synchronously, avoid_print, use_key_in_widget_constructors
+
 import 'package:flutter/material.dart';
 import 'package:mess_manager/models/addMember_models.dart';
 import 'package:mess_manager/providers/db_provider.dart';
-import 'package:path/path.dart';
 import 'package:provider/provider.dart';
 
 import '../untils/custom_colors.dart';

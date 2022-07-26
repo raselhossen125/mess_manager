@@ -5,6 +5,7 @@ import 'package:mess_manager/pages/forgetpassword_page.dart';
 import 'package:mess_manager/pages/home_page.dart';
 import 'package:mess_manager/pages/register_page.dart';
 import 'package:mess_manager/providers/db_provider.dart';
+import 'package:mess_manager/providers/meal_provider.dart';
 import 'package:provider/provider.dart';
 
 import '../untils/custom_colors.dart';
@@ -158,6 +159,7 @@ class _LogInPageState extends State<LogInPage> {
                     if (provider.logedInList.isNotEmpty) {
                       if (provider.logedInList[0].password ==
                           password_Controller.text) {
+                        Provider.of<MealProvider>(context, listen: false).setLogInStatus(true);
                         Navigator.of(context)
                             .pushReplacementNamed(HomePage.routeName);
                       }

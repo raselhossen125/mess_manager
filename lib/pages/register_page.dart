@@ -7,6 +7,7 @@ import 'package:mess_manager/pages/login_page.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../providers/db_provider.dart';
+import '../providers/meal_provider.dart';
 import '../untils/custom_colors.dart';
 
 class RegisterPage extends StatefulWidget {
@@ -320,6 +321,7 @@ class _RegisterPageState extends State<RegisterPage> {
         final status = await Provider.of<DBProvider>(context, listen: false)
             .addNewRegister(register);
         if (status) {
+          Provider.of<MealProvider>(context, listen: false).setLogInStatus(true);
           Navigator.pushReplacementNamed(context, HomePage.routeName);
           print(register.toString());
         }
