@@ -131,7 +131,7 @@ class AddMealCostPage extends StatelessWidget {
                             ),
                             SizedBox(width: 10),
                             Text(
-                              provider.selectedValue,
+                              provider.selectedValueCost,
                               style: TextStyle(
                                   fontWeight: FontWeight.w400,
                                   color: Colors.black,
@@ -142,7 +142,6 @@ class AddMealCostPage extends StatelessWidget {
                               borderRadius: BorderRadius.circular(15),
                               underline: Text(""),
                               dropdownColor: Colors.white,
-                              // value: provider.latestValue,
                               icon: Icon(
                                 Icons.keyboard_arrow_down,
                                 color: CustomColors.appColor,
@@ -159,7 +158,7 @@ class AddMealCostPage extends StatelessWidget {
                                 );
                               }).toList(),
                               onChanged: (newValue) {
-                                provider.dropDownItemChange(newValue as String);
+                                provider.dropDownItemChangeCost(newValue as String);
                               },
                             ),
                           ],

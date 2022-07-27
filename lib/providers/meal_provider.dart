@@ -12,7 +12,10 @@ class MealProvider extends ChangeNotifier {
   bool isDark = false;
   String? pickeddate;
   double chipValue = 0.0;
-  String selectedValue = 'Chose';
+  String selectedValueCost = 'Chose';
+  String selectedValueDeposit = 'Chose';
+  bool isInitCost = true;
+  bool isInitDeposit = true;
   List<String> dropdown_items = [];
 
   dpDwnControll(BuildContext context) {
@@ -23,9 +26,22 @@ class MealProvider extends ChangeNotifier {
     });
   }
 
-  dropDownItemChange(String newValue) {
-    selectedValue = newValue;
+  dropDownItemChangeCost(String newValue) {
+    selectedValueCost = newValue;
     notifyListeners();
+  }
+
+  dropDownItemChangeDeposit(String newValue) {
+    selectedValueDeposit = newValue;
+    notifyListeners();
+  }
+
+  initDecitionCost() {
+    isInitCost = false;
+  }
+
+  initDecitionDeposit() {
+    isInitDeposit = false;
   }
 
   Future<bool> setLogInStatus(bool ststus) async {
