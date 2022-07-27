@@ -1,6 +1,4 @@
-
-
-// ignore_for_file: use_build_context_synchronously
+// ignore_for_file: use_build_context_synchronously, non_constant_identifier_names
 
 import 'package:flutter/cupertino.dart';
 import 'package:mess_manager/db/member_db_helper.dart';
@@ -12,7 +10,8 @@ import 'meal_provider.dart';
 
 class DBProvider extends ChangeNotifier {
   List<RegisterModel> registerList = [];
-  List<RegisterModel> logedInList = [];
+  List<AddMemberModel> memberList = [];
+  List<AddMemberModel> allMemberList = [];
 
   Future<bool> addNewRegister(RegisterModel registerModel, BuildContext context) async {
     final rowId = await DBHelper.insertRegister(registerModel);
@@ -25,11 +24,9 @@ class DBProvider extends ChangeNotifier {
     return false;
   }
 
-  Future<RegisterModel>getRegisterPersonByGmail(String gmail, BuildContext context) async{
+  Future<RegisterModel> getRegisterPersonByGmail(String gmail, BuildContext context) async{
     return DBHelper.getRegisterPersonByGmail(gmail);
   }
-
-  List<AddMemberModel> memberList = [];
 
   Future<bool> addNewMember(AddMemberModel addMemberModel) async {
     final rowId = await MemberDbhelper.insertMember(addMemberModel);
@@ -40,4 +37,18 @@ class DBProvider extends ChangeNotifier {
     }
     return false;
   }
+
+  Future<RegisterModel> getLogInPersonByManagerId(BuildContext context) async {
+    int managerId = await Provider.of<MealProvider>(context, listen: false).getManagerId();
+    return DBHelper.getLogInPersonByManagerId(managerId);
+  }
+
+  getAllMemberByManagerId(BuildContext context) async{
+    int managerId = await Provider.of<MealProvider>(context,listen: false).getManagerId();
+    MemberDbhelper.getAllMemberByManagerId(managerId).then((value) {
+      allMemberList = value;
+      notifyListeners();
+    });
+  }
+
 }

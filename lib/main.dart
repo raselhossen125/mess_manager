@@ -1,13 +1,11 @@
 // ignore_for_file: prefer_const_constructors
 
 import 'package:flutter/material.dart';
-import 'package:mess_manager/pages/ab.dart';
 import 'package:mess_manager/pages/home_page.dart';
 import 'package:mess_manager/pages/login_page.dart';
 import 'package:mess_manager/pages/register_page.dart';
 import 'package:mess_manager/providers/meal_provider.dart';
 import 'package:provider/provider.dart';
-
 import 'pages/add_meal_cost_page.dart';
 import 'pages/add_meal_page.dart';
 import 'pages/add_member_money_page.dart';
@@ -21,7 +19,7 @@ void main() {
     MultiProvider(
       providers: [
         ChangeNotifierProvider(create: (context) => MealProvider()),
-        ChangeNotifierProvider(create: (context) => DBProvider()),
+        ChangeNotifierProvider(create: (context) => DBProvider()..getAllMemberByManagerId(context)),
       ],
       child: const MyApp(),
     ),

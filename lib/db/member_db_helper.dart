@@ -1,4 +1,3 @@
-
 import 'package:mess_manager/models/register_model.dart';
 import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';
@@ -28,4 +27,14 @@ class MemberDbhelper {
 
     return db.insert(tableMember, addMemberModel.toMap());
   }
+
+  static Future<List<AddMemberModel>> getAllMemberByManagerId(
+      int managerId) async {
+    final db = await open();
+    final List<Map<String, dynamic>> mapList = await db.query(tableMember,
+        where: '$tableRegisterColId = ?', whereArgs: [managerId]);
+    return List.generate(
+        mapList.length, (index) => AddMemberModel.fromMap(mapList[index]));
+  }
+
 }

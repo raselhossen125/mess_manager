@@ -1,29 +1,30 @@
-// ignore_for_file: unused_element, non_constant_identifier_names
+// ignore_for_file: unused_element, non_constant_identifier_names, avoid_types_as_parameter_names, avoid_function_literals_in_foreach_calls
 
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:mess_manager/providers/db_provider.dart';
+import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+
+import '../models/addMember_models.dart';
 
 class MealProvider extends ChangeNotifier {
   bool isDark = false;
   String? pickeddate;
   double chipValue = 0.0;
-  String? latestValue;
-  String dpSelectedItems = 'Leo Mesi';
+  String selectedValue = 'Chose';
+  List<String> dropdown_items = [];
 
-  var dropdown_items = [
-    'Leo Mesi',
-    'Ronaldo',
-    'Salah',
-    'Neymer',
-    'M Bappe',
-    'Sadio Mane',
-    'Pogba',
-  ];
+  dpDwnControll(BuildContext context) {
+    List<AddMemberModel> member = 
+        Provider.of<DBProvider>(context, listen: false).allMemberList;
+    member.forEach((element) {
+      dropdown_items.add(element.name);
+    });
+  }
 
-  dropDownItemChange(String? newValue) {
-    dpSelectedItems = newValue!;
-    latestValue = newValue;
+  dropDownItemChange(String newValue) {
+    selectedValue = newValue;
     notifyListeners();
   }
 
@@ -42,7 +43,7 @@ class MealProvider extends ChangeNotifier {
     return pref.setInt("managerId", managerId);
   }
 
-  getManagerId() async{
+  getManagerId() async {
     final pref = await SharedPreferences.getInstance();
     return pref.getInt("managerId");
   }

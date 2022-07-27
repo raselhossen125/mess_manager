@@ -1,9 +1,11 @@
-// ignore_for_file: prefer_const_constructors, use_key_in_widget_constructors, prefer_const_literals_to_create_immutables, sized_box_for_whitespace, must_be_immutable, unused_local_variable, unused_field, prefer_final_fields
+// ignore_for_file: prefer_const_constructors, use_key_in_widget_constructors, prefer_const_literals_to_create_immutables, sized_box_for_whitespace, must_be_immutable, unused_local_variable, unused_field, prefer_final_fields, unnecessary_cast
 
 import 'package:flutter/material.dart';
 import 'package:flutter_speed_dial/flutter_speed_dial.dart';
+import 'package:mess_manager/models/register_model.dart';
 import 'package:mess_manager/pages/add_meal_page.dart';
 import 'package:mess_manager/pages/add_member_money_page.dart';
+import 'package:mess_manager/providers/db_provider.dart';
 import 'package:mess_manager/providers/meal_provider.dart';
 import 'package:provider/provider.dart';
 import '../untils/custom_colors.dart';
@@ -21,15 +23,15 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
+  RegisterModel? model;
 
   @override
   Widget build(BuildContext context) {
     Color myBGColor = Provider.of<MealProvider>(context).isDark
         ? Colors.black
         : Colors.white.withOpacity(0.9);
-    Color myColor = Provider.of<MealProvider>(context).isDark
-        ? Colors.white
-        : Colors.black;
+    Color myColor =
+        Provider.of<MealProvider>(context).isDark ? Colors.white : Colors.black;
     return Scaffold(
       backgroundColor: myBGColor,
       key: _scaffoldKey,
@@ -46,7 +48,7 @@ class _HomePageState extends State<HomePage> {
                   borderRadius: BorderRadius.circular(15),
                   color: CustomColors.appColor,
                 ),
-                // TODO custom app bar start 
+                // TODO custom app bar start
                 child: Row(
                   children: [
                     SizedBox(width: 20),
@@ -66,12 +68,22 @@ class _HomePageState extends State<HomePage> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        Text(
-                          'Rasel Hossen',
-                          style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              fontSize: 20,
-                              color: CustomColors.iconColor),
+                        FutureBuilder(
+                          future: getData(context),
+                          builder: (context, snapshort) {
+                            if (snapshort.hasData) {
+                              return Text(
+                                model!.managerName.toString(),
+                                style: TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 20,
+                                    color: CustomColors.iconColor),
+                              );
+                            }
+                            return CircularProgressIndicator(
+                              color: Colors.white,
+                            );
+                          },
                         ),
                         SizedBox(height: 3),
                         Text(
@@ -105,7 +117,7 @@ class _HomePageState extends State<HomePage> {
             Expanded(
               child: ListView(
                 children: [
-                  // TODO mess calculation ndetails start 
+                  // TODO mess calculation ndetails start
                   Padding(
                     padding:
                         const EdgeInsets.symmetric(horizontal: 20, vertical: 8),
@@ -250,15 +262,14 @@ class _HomePageState extends State<HomePage> {
                       ),
                     ),
                   ),
-                  // TODO total members details start 
-                  
+                  // TODO total members details start
                 ],
               ),
             ),
           ],
         ),
       ),
-      // TODO floating action button start 
+      // TODO floating action button start
       floatingActionButton: SpeedDial(
         icon: Icons.add,
         activeIcon: Icons.add,
@@ -323,5 +334,11 @@ class _HomePageState extends State<HomePage> {
         ],
       ),
     );
+  }
+
+  Future<RegisterModel?> getData(BuildContext context) async {
+    model = await Provider.of<DBProvider>(context, listen: false)
+        .getLogInPersonByManagerId(context) as RegisterModel;
+    return model;
   }
 }

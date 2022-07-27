@@ -1,4 +1,4 @@
-// ignore_for_file: use_key_in_widget_constructors, prefer_const_constructors, prefer_const_literals_to_create_immutables, unnecessary_null_comparison, prefer_if_null_operators
+// ignore_for_file: use_key_in_widget_constructors, prefer_const_constructors, prefer_const_literals_to_create_immutables, unnecessary_null_comparison, prefer_if_null_operators, non_constant_identifier_names, must_be_immutable, avoid_print, avoid_function_literals_in_foreach_calls
 
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
@@ -8,9 +8,14 @@ import 'package:provider/provider.dart';
 
 class AddMealCostPage extends StatelessWidget {
   static const routeName = '/addMealCost-page';
+  bool isInit = true;
 
   @override
   Widget build(BuildContext context) {
+    if(isInit) {
+      Provider.of<MealProvider>(context).dpDwnControll(context);
+      isInit = false;
+    }
     return Scaffold(
       backgroundColor: Colors.white.withOpacity(0.9),
       appBar: AppBar(
@@ -126,9 +131,7 @@ class AddMealCostPage extends StatelessWidget {
                             ),
                             SizedBox(width: 10),
                             Text(
-                              provider.latestValue == null
-                                  ? provider.dpSelectedItems
-                                  : provider.latestValue.toString(),
+                              provider.selectedValue,
                               style: TextStyle(
                                   fontWeight: FontWeight.w400,
                                   color: Colors.black,
@@ -139,7 +142,7 @@ class AddMealCostPage extends StatelessWidget {
                               borderRadius: BorderRadius.circular(15),
                               underline: Text(""),
                               dropdownColor: Colors.white,
-                              value: provider.dpSelectedItems,
+                              // value: provider.latestValue,
                               icon: Icon(
                                 Icons.keyboard_arrow_down,
                                 color: CustomColors.appColor,
@@ -189,27 +192,3 @@ class AddMealCostPage extends StatelessWidget {
     );
   }
 }
-
-
-
-                          // children: [
-                          //   CircleAvatar(
-                          //     radius: 15,
-                          //     child: Image.asset(
-                          //       'images/R.png',
-                          //       fit: BoxFit.cover,
-                          //     ),
-                          //   ),
-                          //   SizedBox(width: 10),
-                          //   Text(
-                          //     provider.latestValue == null
-                          //         ? provider.dpSelectedItems
-                          //         : provider.latestValue.toString(),
-                          //     style: TextStyle(
-                          //         fontWeight: FontWeight.w400,
-                          //         color: Colors.black,
-                          //         fontSize: 18),
-                          //   ),
-                          //   Spacer(),
-                          // ],
-                        

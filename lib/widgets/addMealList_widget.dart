@@ -1,13 +1,18 @@
-// ignore_for_file: prefer_const_constructors
+// ignore_for_file: prefer_const_constructors, use_key_in_widget_constructors, must_be_immutable
 
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+import '../models/addMember_models.dart';
 import '../providers/meal_provider.dart';
 import '../untils/custom_colors.dart';
 
 class AddMealListWidget extends StatelessWidget {
-  const AddMealListWidget({Key? key}) : super(key: key);
+  AddMemberModel addMemberModel;
+
+  AddMealListWidget({
+    required this.addMemberModel,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -33,7 +38,7 @@ class AddMealListWidget extends StatelessWidget {
                 ),
                 SizedBox(width: 10),
                 Text(
-                  'Leo Messi',
+                  addMemberModel.name,
                   style: TextStyle(
                       fontWeight: FontWeight.w400,
                       color: Colors.black,

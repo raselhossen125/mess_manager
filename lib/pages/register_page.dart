@@ -5,7 +5,6 @@ import 'package:mess_manager/models/register_model.dart';
 import 'package:mess_manager/pages/home_page.dart';
 import 'package:mess_manager/pages/login_page.dart';
 import 'package:provider/provider.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import '../providers/db_provider.dart';
 import '../providers/meal_provider.dart';
 import '../untils/custom_colors.dart';

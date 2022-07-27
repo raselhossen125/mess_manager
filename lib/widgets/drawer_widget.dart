@@ -1,4 +1,4 @@
-// ignore_for_file: prefer_const_constructors, sized_box_for_whitespace, prefer_const_literals_to_create_immutables, unused_local_variable
+// ignore_for_file: prefer_const_constructors, sized_box_for_whitespace, prefer_const_literals_to_create_immutables, unused_local_variable, must_be_immutable, use_key_in_widget_constructors, unnecessary_cast
 
 import 'package:flutter/material.dart';
 import 'package:mess_manager/pages/add_member_money_page.dart';
@@ -7,14 +7,15 @@ import 'package:mess_manager/pages/home_page.dart';
 import 'package:mess_manager/pages/login_page.dart';
 import 'package:mess_manager/untils/custom_colors.dart';
 import 'package:provider/provider.dart';
-
+import '../models/register_model.dart';
 import '../pages/add_meal_cost_page.dart';
 import '../pages/add_meal_page.dart';
+import '../providers/db_provider.dart';
 import '../providers/meal_provider.dart';
 import 'drawer_listTile_widget.dart';
 
 class DrawerWidget extends StatelessWidget {
-  const DrawerWidget({Key? key}) : super(key: key);
+  RegisterModel? model;
 
   @override
   Widget build(BuildContext context) {
@@ -36,14 +37,35 @@ class DrawerWidget extends StatelessWidget {
                     fit: BoxFit.cover,
                   ),
                   SizedBox(height: 6),
-                  Text(
-                    'Rasel Hossen',
-                    style: TextStyle(fontWeight: FontWeight.w500, fontSize: 18),
+                  FutureBuilder(
+                    future: getData(context),
+                    builder: (context, snapshort) {
+                      if (snapshort.hasData) {
+                        return Text(
+                          model!.managerName.toString(),
+                          style: TextStyle(
+                              fontWeight: FontWeight.w500, fontSize: 18),
+                        );
+                      }
+                      return CircularProgressIndicator(
+                        color: Colors.white,
+                      );
+                    },
                   ),
                   SizedBox(height: 8),
-                  Text(
-                    'straselhossen24@gmail.com',
-                    style: TextStyle(fontSize: 14),
+                  FutureBuilder(
+                    future: getData(context),
+                    builder: (context, snapshort) {
+                      if (snapshort.hasData) {
+                        return Text(
+                          model!.managerEmail.toString(),
+                          style: TextStyle(fontSize: 14),
+                        );
+                      }
+                      return CircularProgressIndicator(
+                        color: Colors.white,
+                      );
+                    },
                   ),
                   SizedBox(height: 8),
                   Container(
@@ -85,7 +107,9 @@ class DrawerWidget extends StatelessWidget {
                     icon: Icons.person_add,
                     text: 'Add Member',
                     onPressed: () {
-                      Navigator.of(context).pushNamed(AddMemberPage.routeName).then((value) {
+                      Navigator.of(context)
+                          .pushNamed(AddMemberPage.routeName)
+                          .then((value) {
                         Navigator.of(context)
                             .pushReplacementNamed(HomePage.routeName);
                       });
@@ -95,9 +119,11 @@ class DrawerWidget extends StatelessWidget {
                     icon: Icons.paid,
                     text: 'Add Member Money',
                     onPressed: () {
-                      Navigator.of(context).pushNamed(AddMemberMoneyPage.routeName).then((value) {
+                      Navigator.of(context)
+                          .pushNamed(AddMemberMoneyPage.routeName)
+                          .then((value) {
                         Navigator.of(context)
-                          .pushReplacementNamed(HomePage.routeName);
+                            .pushReplacementNamed(HomePage.routeName);
                       });
                     },
                   ),
@@ -117,11 +143,12 @@ class DrawerWidget extends StatelessWidget {
                     icon: Icons.shopping_cart,
                     text: 'Add Meal Cost',
                     onPressed: () {
-                      Navigator.of(context).pushNamed(AddMealCostPage.routeName).then((value) {
+                      Navigator.of(context)
+                          .pushNamed(AddMealCostPage.routeName)
+                          .then((value) {
                         Navigator.of(context)
-                          .pushReplacementNamed(HomePage.routeName);
+                            .pushReplacementNamed(HomePage.routeName);
                       });
-                      
                     },
                   ),
                   DrawerListTileWidget(
@@ -200,8 +227,10 @@ class DrawerWidget extends StatelessWidget {
                               color: CustomColors.appColor),
                         ),
                         onPressed: () {
-                          Provider.of<MealProvider>(context, listen: false).setLogInStatus(false);
-                          Navigator.of(context).pushReplacementNamed(LogInPage.routeName);
+                          Provider.of<MealProvider>(context, listen: false)
+                              .setLogInStatus(false);
+                          Navigator.of(context)
+                              .pushReplacementNamed(LogInPage.routeName);
                         },
                       ),
                     ),
@@ -213,5 +242,11 @@ class DrawerWidget extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  Future<RegisterModel?> getData(BuildContext context) async {
+    model = await Provider.of<DBProvider>(context, listen: false)
+        .getLogInPersonByManagerId(context) as RegisterModel;
+    return model;
   }
 }
