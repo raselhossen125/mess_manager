@@ -37,4 +37,9 @@ class MemberDbhelper {
         mapList.length, (index) => AddMemberModel.fromMap(mapList[index]));
   }
 
+  static Future<int> deleteMember(int id) async{
+    final db = await open();
+    return db.delete(tableMember, where: '$tableMemberColId = ?', whereArgs: [id]);
+  }
+
 }

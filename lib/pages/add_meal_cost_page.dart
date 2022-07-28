@@ -126,12 +126,14 @@ class AddMealCostPage extends StatelessWidget {
                               ),
                             ),
                             SizedBox(width: 10),
-                            Text(
-                              provider.selectedValueCost,
-                              style: TextStyle(
-                                  fontWeight: FontWeight.w400,
-                                  color: Colors.black,
-                                  fontSize: 18),
+                            FittedBox(
+                              child: Text(
+                                provider.selectedValueCost,
+                                style: TextStyle(
+                                    fontWeight: FontWeight.w400,
+                                    color: Colors.black,
+                                    fontSize: 18),
+                              ),
                             ),
                             Spacer(),
                             DropdownButton(

@@ -51,4 +51,12 @@ class DBProvider extends ChangeNotifier {
     });
   }
 
+  deleteMember(int id) async{
+    final rowId = await MemberDbhelper.deleteMember(id);
+    if(rowId>0){
+      allMemberList.removeWhere((element) => element.id==id);
+      notifyListeners();
+    }
+  }
+
 }

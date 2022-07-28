@@ -1,4 +1,4 @@
-// ignore_for_file: unused_element, non_constant_identifier_names, avoid_types_as_parameter_names, avoid_function_literals_in_foreach_calls
+// ignore_for_file: unused_element, non_constant_identifier_names, avoid_types_as_parameter_names, avoid_function_literals_in_foreach_calls, avoid_print
 
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';

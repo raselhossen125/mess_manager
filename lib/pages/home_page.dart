@@ -29,6 +29,8 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
+    Provider.of<DBProvider>(context, listen: false)
+        .getAllMemberByManagerId(context);
     Color myBGColor = Provider.of<MealProvider>(context).isDark
         ? Colors.black
         : Colors.white.withOpacity(0.9);
@@ -328,7 +330,9 @@ class _HomePageState extends State<HomePage> {
           ),
           SpeedDialChild(
             onTap: () {
-              Navigator.of(context).pushNamed(AddMealCostPage.routeName);
+              Navigator.of(context).pushNamed(AddMealCostPage.routeName).then((value) {
+                Provider.of<MealProvider>(context, listen: false).dropdown_items_cost.clear();
+              });
             },
             backgroundColor: CustomColors.appColor,
             labelBackgroundColor: CustomColors.appColor,

@@ -5,6 +5,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:mess_manager/pages/add_member_money_page.dart';
 import 'package:mess_manager/pages/add_member_page.dart';
+import 'package:mess_manager/pages/all_membe_page.dart';
 import 'package:mess_manager/pages/home_page.dart';
 import 'package:mess_manager/pages/login_page.dart';
 import 'package:mess_manager/untils/custom_colors.dart';
@@ -29,103 +30,88 @@ class DrawerWidget extends StatelessWidget {
             Container(
               width: double.infinity,
               color: Colors.grey.withOpacity(0.1),
-              child: Consumer<MealProvider>(
-                builder: (context, provider, _) => Column(
-                  children: [
-                    SizedBox(height: 20),
-                    FutureBuilder(
-                      future: getData(context),
-                      builder: (context, snapshort) {
-                        if (snapshort.hasData) {
-                          return ClipRRect(
-                            borderRadius: BorderRadius.circular(100),
-                            child: model!.managerImageUrl == null
-                                ? Image.asset(
-                                    'images/R.png',
-                                    height: 90,
-                                    width: 90,
-                                    fit: BoxFit.cover,
-                                  )
-                                : Image.file(
-                                    File(model!.managerImageUrl.toString()),
-                                    height: 90,
-                                    width: 90,
-                                    fit: BoxFit.cover,
-                                  ),
-                          );
-                          // model!.managerImageUrl == null
-                          //     ? Image.asset(
-                          //         'images/R.png',
-                          //         height: 100,
-                          //         width: 100,
-                          //         fit: BoxFit.cover,
-                          //       )
-                          //     : Image.file(
-                          //         File(model!.managerImageUrl.toString()),
-                          //         height: 100,
-                          //         width: 100,
-                          //         fit: BoxFit.cover,
-                          //       );
-                        }
-                        return CircularProgressIndicator(
-                          color: Colors.white,
+              child: Column(
+                children: [
+                  SizedBox(height: 20),
+                  FutureBuilder(
+                    future: getData(context),
+                    builder: (context, snapshort) {
+                      if (snapshort.hasData) {
+                        return ClipRRect(
+                          borderRadius: BorderRadius.circular(100),
+                          child: model?.managerImageUrl == null
+                              ? Image.asset(
+                                  'images/R.png',
+                                  height: 90,
+                                  width: 90,
+                                  fit: BoxFit.cover,
+                                )
+                              : Image.file(
+                                  File(model!.managerImageUrl.toString()),
+                                  height: 90,
+                                  width: 90,
+                                  fit: BoxFit.cover,
+                                ),
                         );
-                      },
-                    ),
-                    SizedBox(height: 6),
-                    FutureBuilder(
-                      future: getData(context),
-                      builder: (context, snapshort) {
-                        if (snapshort.hasData) {
-                          return Text(
-                            model!.managerName.toString(),
-                            style: TextStyle(
-                                fontWeight: FontWeight.w500, fontSize: 18),
-                          );
-                        }
-                        return CircularProgressIndicator(
-                          color: Colors.white,
+                      }
+                      return CircularProgressIndicator(
+                        color: Colors.white,
+                      );
+                    },
+                  ),
+                  SizedBox(height: 6),
+                  FutureBuilder(
+                    future: getData(context),
+                    builder: (context, snapshort) {
+                      if (snapshort.hasData) {
+                        return Text(
+                          model!.managerName,
+                          style: TextStyle(
+                              fontWeight: FontWeight.w500, fontSize: 18),
                         );
-                      },
-                    ),
-                    SizedBox(height: 8),
-                    FutureBuilder(
-                      future: getData(context),
-                      builder: (context, snapshort) {
-                        if (snapshort.hasData) {
-                          return Text(
-                            model!.managerEmail.toString(),
-                            style: TextStyle(fontSize: 14),
-                          );
-                        }
-                        return CircularProgressIndicator(
-                          color: Colors.white,
+                      }
+                      return CircularProgressIndicator(
+                        color: Colors.white,
+                      );
+                    },
+                  ),
+                  SizedBox(height: 8),
+                  FutureBuilder(
+                    future: getData(context),
+                    builder: (context, snapshort) {
+                      if (snapshort.hasData) {
+                        return Text(
+                          model!.managerEmail,
+                          style: TextStyle(fontSize: 14),
                         );
-                      },
-                    ),
-                    SizedBox(height: 8),
-                    Container(
-                      height: 28,
-                      width: 200,
-                      margin: EdgeInsets.only(bottom: 20),
-                      child: OutlinedButton(
-                        style: OutlinedButton.styleFrom(
-                          primary: Colors.black,
-                          backgroundColor: Colors.white,
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(7),
-                          ),
-                          side: BorderSide(
-                            color: Colors.grey,
-                            width: 1,
-                          ),
+                      }
+                      return CircularProgressIndicator(
+                        color: Colors.white,
+                      );
+                    },
+                  ),
+                  SizedBox(height: 8),
+                  Container(
+                    height: 28,
+                    width: 200,
+                    margin: EdgeInsets.only(bottom: 20),
+                    child: OutlinedButton(
+                      style: OutlinedButton.styleFrom(
+                        primary: Colors.black,
+                        backgroundColor: Colors.white,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(7),
                         ),
-                        child: Text('View Mess Settings'),
-                        onPressed: () {},
+                        side: BorderSide(
+                          color: Colors.grey,
+                          width: 1,
+                        ),
                       ),
+                      child: Text('View Mess Settings'),
+                      onPressed: () {},
                     ),
-                  ],
-                ),
+                  ),
+                ],
               ),
             ),
             // TODO option start
@@ -183,6 +169,10 @@ class DrawerWidget extends StatelessWidget {
                       Navigator.of(context)
                           .pushNamed(AddMealCostPage.routeName)
                           .then((value) {
+                        Provider.of<MealProvider>(context, listen: false)
+                            .dropdown_items_cost
+                            .clear();
+                      }).then((value) {
                         Navigator.of(context)
                             .pushReplacementNamed(HomePage.routeName);
                       });
@@ -193,7 +183,11 @@ class DrawerWidget extends StatelessWidget {
                     text: 'All Members',
                     onPressed: () {
                       Navigator.of(context)
-                          .pushReplacementNamed(HomePage.routeName);
+                          .pushNamed(AllMemberPage.routeName)
+                          .then((value) {
+                        Navigator.of(context)
+                            .pushReplacementNamed(HomePage.routeName);
+                      });
                     },
                   ),
                   Divider(
