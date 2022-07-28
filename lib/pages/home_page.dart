@@ -1,5 +1,7 @@
 // ignore_for_file: prefer_const_constructors, use_key_in_widget_constructors, prefer_const_literals_to_create_immutables, sized_box_for_whitespace, must_be_immutable, unused_local_variable, unused_field, prefer_final_fields, unnecessary_cast
 
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_speed_dial/flutter_speed_dial.dart';
 import 'package:mess_manager/models/register_model.dart';
@@ -63,7 +65,36 @@ class _HomePageState extends State<HomePage> {
                         fit: BoxFit.cover,
                       ),
                     ),
-                    SizedBox(width: 30),
+                    SizedBox(width: 20),
+                    Consumer<MealProvider>(
+                      builder: (context, provider, _) => FutureBuilder(
+                        future: getData(context),
+                        builder: (context, snapshort) {
+                          if (snapshort.hasData) {
+                            return ClipRRect(
+                              borderRadius: BorderRadius.circular(100),
+                              child: model!.managerImageUrl == null
+                                  ? Image.asset(
+                                      'images/R.png',
+                                      height: 35,
+                                      width: 35,
+                                      fit: BoxFit.cover,
+                                    )
+                                  : Image.file(
+                                      File(model!.managerImageUrl.toString()),
+                                      height: 35,
+                                      width: 35,
+                                      fit: BoxFit.cover,
+                                    ),
+                            );
+                          }
+                          return CircularProgressIndicator(
+                            color: Colors.white,
+                          );
+                        },
+                      ),
+                    ),
+                    SizedBox(width: 20),
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       mainAxisAlignment: MainAxisAlignment.center,

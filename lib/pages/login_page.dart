@@ -39,10 +39,9 @@ class _LogInPageState extends State<LogInPage> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Container(
-                height: 80,
-                width: 80,
+                height: 90,
+                width: 90,
                 decoration: BoxDecoration(
-                  border: Border.all(width: 2, color: CustomColors.appColor),
                   borderRadius: BorderRadius.circular(100),
                 ),
                 child: Image.asset('images/R.png'),

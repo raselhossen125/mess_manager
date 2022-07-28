@@ -5,7 +5,6 @@ import 'package:intl/intl.dart';
 import 'package:mess_manager/providers/db_provider.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-
 import '../models/addMember_models.dart';
 
 class MealProvider extends ChangeNotifier {
@@ -14,16 +13,29 @@ class MealProvider extends ChangeNotifier {
   double chipValue = 0.0;
   String selectedValueCost = 'Chose';
   String selectedValueDeposit = 'Chose';
-  bool isInitCost = true;
-  bool isInitDeposit = true;
-  List<String> dropdown_items = [];
+  List<String> dropdown_items_cost = [];
+  List<String> dropdown_items_deposit = [];
 
-  dpDwnControll(BuildContext context) {
-    List<AddMemberModel> member = 
+  dpDwnControllCost(BuildContext context) {
+    List<AddMemberModel> member =
         Provider.of<DBProvider>(context, listen: false).allMemberList;
-    member.forEach((element) {
-      dropdown_items.add(element.name);
-    });
+    if (dropdown_items_cost.isEmpty) {
+      member.forEach(
+        (element) {
+          dropdown_items_cost.add(element.name);
+        },
+      );
+    }
+  }
+
+  dpDwnControllDeposit(BuildContext context) {
+    List<AddMemberModel> member =
+        Provider.of<DBProvider>(context, listen: false).allMemberList;
+    if (dropdown_items_deposit.isEmpty) {
+      member.forEach((element) {
+        dropdown_items_deposit.add(element.name);
+      });
+    }
   }
 
   dropDownItemChangeCost(String newValue) {
@@ -34,14 +46,6 @@ class MealProvider extends ChangeNotifier {
   dropDownItemChangeDeposit(String newValue) {
     selectedValueDeposit = newValue;
     notifyListeners();
-  }
-
-  initDecitionCost() {
-    isInitCost = false;
-  }
-
-  initDecitionDeposit() {
-    isInitDeposit = false;
   }
 
   Future<bool> setLogInStatus(bool ststus) async {

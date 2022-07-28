@@ -19,7 +19,7 @@ void main() {
     MultiProvider(
       providers: [
         ChangeNotifierProvider(create: (context) => MealProvider()),
-        ChangeNotifierProvider(create: (context) => DBProvider()..getAllMemberByManagerId(context)),
+        ChangeNotifierProvider(create: (context) => DBProvider()),
       ],
       child: const MyApp(),
     ),

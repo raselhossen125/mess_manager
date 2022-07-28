@@ -1,8 +1,7 @@
-// ignore_for_file: prefer_const_constructors, use_key_in_widget_constructors, must_be_immutable
+// ignore_for_file: prefer_const_constructors, use_key_in_widget_constructors, must_be_immutable, unnecessary_cast
 
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-
 import '../models/addMember_models.dart';
 import '../providers/meal_provider.dart';
 import '../untils/custom_colors.dart';

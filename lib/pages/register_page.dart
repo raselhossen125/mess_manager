@@ -1,6 +1,9 @@
 // ignore_for_file: use_build_context_synchronously, avoid_print, prefer_typing_uninitialized_variables, use_key_in_widget_constructors, prefer_const_constructors, curly_braces_in_flow_control_structures, unnecessary_null_comparison
 
+import 'dart:io';
+
 import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:mess_manager/models/register_model.dart';
 import 'package:mess_manager/pages/home_page.dart';
 import 'package:mess_manager/pages/login_page.dart';
@@ -20,6 +23,8 @@ class _RegisterPageState extends State<RegisterPage> {
   bool passObsecure = true;
   bool conPassObsecure = true;
   String errorText = '';
+  String? imagePath;
+  ImageSource imageSource = ImageSource.camera;
 
   final formKey = GlobalKey<FormState>();
 
@@ -48,16 +53,23 @@ class _RegisterPageState extends State<RegisterPage> {
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: [
-                Container(
-                  height: 80,
-                  width: 80,
-                  decoration: BoxDecoration(
-                    border: Border.all(width: 2, color: CustomColors.appColor),
-                    borderRadius: BorderRadius.circular(100), //<-- SEE HERE
-                  ),
-                  child: Image.asset('images/R.png'),
+                ClipRRect(
+                  borderRadius: BorderRadius.circular(100),
+                  child: imagePath == null
+                      ? Image.asset(
+                          'images/R.png',
+                          height: 90,
+                          width: 90,
+                          fit: BoxFit.cover,
+                        )
+                      : Image.file(
+                          File(imagePath!),
+                          height: 90,
+                          width: 90,
+                          fit: BoxFit.cover,
+                        ),
                 ),
-                const SizedBox(height: 20),
+                const SizedBox(height: 10),
                 Text(
                   'Sign Up As Mess Manager',
                   style: TextStyle(
@@ -67,6 +79,29 @@ class _RegisterPageState extends State<RegisterPage> {
                   ),
                 ),
                 const SizedBox(height: 15),
+                Consumer<MealProvider>(
+                  builder: (context, provider, _) => Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      ElevatedButton(
+                          onPressed: () {
+                            imageSource = ImageSource.camera;
+                            getImage();
+                          },
+                          child: const Text('Camera')),
+                      SizedBox(
+                        width: 10,
+                      ),
+                      ElevatedButton(
+                          onPressed: () {
+                            imageSource = ImageSource.gallery;
+                            getImage();
+                          },
+                          child: const Text('Gallery')),
+                    ],
+                  ),
+                ),
+                const SizedBox(height: 10),
                 Form(
                   key: formKey,
                   child: Column(
@@ -235,7 +270,9 @@ class _RegisterPageState extends State<RegisterPage> {
                           return null;
                         },
                       ),
-                      SizedBox(height: 7,),
+                      SizedBox(
+                        height: 7,
+                      ),
                       Align(
                         alignment: Alignment.centerLeft,
                         child: Text(
@@ -311,6 +348,7 @@ class _RegisterPageState extends State<RegisterPage> {
       RegisterModel? register;
       if (p1 == p2) {
         register = RegisterModel(
+          managerImageUrl: imagePath,
           managerName: nameController.text,
           managerEmail: emailController.text,
           password: passwordController.text,
@@ -320,7 +358,8 @@ class _RegisterPageState extends State<RegisterPage> {
         final status = await Provider.of<DBProvider>(context, listen: false)
             .addNewRegister(register, context);
         if (status) {
-          Provider.of<MealProvider>(context, listen: false).setLogInStatus(true);
+          Provider.of<MealProvider>(context, listen: false)
+              .setLogInStatus(true);
           Navigator.pushReplacementNamed(context, HomePage.routeName);
           print(register.toString());
         }
@@ -329,6 +368,15 @@ class _RegisterPageState extends State<RegisterPage> {
           errorText = 'Both password are not same';
         });
       }
+    }
+  }
+
+  void getImage() async {
+    final selectedImage = await ImagePicker().pickImage(source: imageSource);
+    if (selectedImage != null) {
+      setState(() {
+        imagePath = selectedImage.path;
+      });
     }
   }
 }

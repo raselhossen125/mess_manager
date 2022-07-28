@@ -8,14 +8,10 @@ import 'package:provider/provider.dart';
 
 class AddMemberMoneyPage extends StatelessWidget {
   static const routeName = '/addMemberMoney-page';
-  bool isInit = true;
 
   @override
   Widget build(BuildContext context) {
-    if(isInit) {
-      Provider.of<MealProvider>(context).dpDwnControll(context);
-      isInit = false;
-    }
+    Provider.of<MealProvider>(context).dpDwnControllDeposit(context);
     return Scaffold(
       backgroundColor: Colors.white.withOpacity(0.9),
       appBar: AppBar(
@@ -143,7 +139,7 @@ class AddMemberMoneyPage extends StatelessWidget {
                                     color: Colors.black,
                                     fontSize: 18),
                                 items:
-                                    provider.dropdown_items.map((String items) {
+                                    provider.dropdown_items_deposit.map((String items) {
                                   return DropdownMenuItem(
                                     value: items,
                                     child: Text(items),

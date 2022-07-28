@@ -8,14 +8,10 @@ import 'package:provider/provider.dart';
 
 class AddMealCostPage extends StatelessWidget {
   static const routeName = '/addMealCost-page';
-  bool isInit = true;
 
   @override
   Widget build(BuildContext context) {
-    if(isInit) {
-      Provider.of<MealProvider>(context).dpDwnControll(context);
-      isInit = false;
-    }
+    Provider.of<MealProvider>(context).dpDwnControllCost(context);
     return Scaffold(
       backgroundColor: Colors.white.withOpacity(0.9),
       appBar: AppBar(
@@ -151,7 +147,7 @@ class AddMealCostPage extends StatelessWidget {
                                   color: Colors.black,
                                   fontSize: 18),
                               items:
-                                  provider.dropdown_items.map((String items) {
+                                  provider.dropdown_items_cost.map((String items) {
                                 return DropdownMenuItem(
                                   value: items,
                                   child: Text(items),

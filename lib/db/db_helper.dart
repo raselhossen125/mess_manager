@@ -7,6 +7,7 @@ class DBHelper {
   static const createTableContact = '''
   create table $tableRegister(
   $tableRegisterColId integer primary key,
+  $tableRegisterColImageUrl text,
   $tableRegisterColName text,
   $tableRegisterColEmail text,
   $tableRegisterColPassword text,
