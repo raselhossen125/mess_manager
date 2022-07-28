@@ -33,6 +33,7 @@ class AddMemberModel {
   }
 
   factory AddMemberModel.fromMap(Map<String, dynamic> map) => AddMemberModel(
+        id: map[tableMemberColId],
         name: map[tableMemberColName],
         email: map[tableMemberColEmail],
         managerId: map[tableRegisterColId],

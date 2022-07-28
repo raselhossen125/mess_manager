@@ -4,6 +4,7 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_speed_dial/flutter_speed_dial.dart';
+import 'package:mess_manager/models/addMember_models.dart';
 import 'package:mess_manager/models/register_model.dart';
 import 'package:mess_manager/pages/add_meal_page.dart';
 import 'package:mess_manager/pages/add_member_money_page.dart';

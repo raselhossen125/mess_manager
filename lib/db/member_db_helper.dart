@@ -24,7 +24,6 @@ class MemberDbhelper {
 
   static Future<int> insertMember(AddMemberModel addMemberModel) async {
     final db = await open();
-
     return db.insert(tableMember, addMemberModel.toMap());
   }
 
