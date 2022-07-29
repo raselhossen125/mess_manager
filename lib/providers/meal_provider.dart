@@ -32,9 +32,11 @@ class MealProvider extends ChangeNotifier {
     List<AddMemberModel> member =
         Provider.of<DBProvider>(context, listen: false).allMemberList;
     if (dropdown_items_deposit.isEmpty) {
-      member.forEach((element) {
-        dropdown_items_deposit.add(element.name);
-      });
+      member.forEach(
+        (element) {
+          dropdown_items_deposit.add(element.name);
+        },
+      );
     }
   }
 

@@ -1,10 +1,9 @@
-// ignore_for_file: prefer_const_constructors, use_key_in_widget_constructors, prefer_const_literals_to_create_immutables, sized_box_for_whitespace, must_be_immutable, unused_local_variable, unused_field, prefer_final_fields, unnecessary_cast
+// ignore_for_file: prefer_const_constructors, use_key_in_widget_constructors, prefer_const_literals_to_create_immutables, sized_box_for_whitespace, must_be_immutable, unused_local_variable, unused_field, prefer_final_fields, unnecessary_cast, prefer_interpolation_to_compose_strings
 
 import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_speed_dial/flutter_speed_dial.dart';
-import 'package:mess_manager/models/addMember_models.dart';
 import 'package:mess_manager/models/register_model.dart';
 import 'package:mess_manager/pages/add_meal_page.dart';
 import 'package:mess_manager/pages/add_member_money_page.dart';
@@ -154,7 +153,7 @@ class _HomePageState extends State<HomePage> {
                   // TODO mess calculation ndetails start
                   Padding(
                     padding:
-                        const EdgeInsets.symmetric(horizontal: 20, vertical: 8),
+                        const EdgeInsets.symmetric(horizontal: 15, vertical: 8),
                     child: Column(
                       children: [
                         Row(
@@ -297,6 +296,96 @@ class _HomePageState extends State<HomePage> {
                     ),
                   ),
                   // TODO total members details start
+                  Padding(
+                    padding: const EdgeInsets.only(
+                        left: 1, right: 2, top: 5, bottom: 5),
+                    child: Card(
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(10)),
+                      elevation: 4,
+                      child: Column(
+                        children: [
+                          SizedBox(height: 7),
+                          Consumer<DBProvider>(
+                            builder: (context, provider, child) {
+                              final length = provider.allMemberList.length;
+                              return Text('Total Member : $length');
+                            }
+                          ),
+                          Divider(
+                            color: Colors.grey,
+                          ),
+                          Container(
+                            height: 500,
+                            child: Consumer<DBProvider>(
+                              builder: (context, provider, _) =>
+                                  ListView.builder(
+                                physics: NeverScrollableScrollPhysics(),
+                                itemCount: provider.allMemberList.length,
+                                itemBuilder: (context, index) {
+                                  final member = provider.allMemberList[index];
+                                  return Padding(
+                                    padding: EdgeInsets.only(
+                                        left: 15, right: 15, bottom: 17),
+                                    child: Column(
+                                      children: [
+                                        SizedBox(height: 5),
+                                        Align(
+                                          alignment: Alignment.centerLeft,
+                                          child: Text(
+                                            member.name,
+                                            style: TextStyle(
+                                                fontSize: 18,
+                                                fontWeight: FontWeight.w500),
+                                          ),
+                                        ),
+                                        SizedBox(height: 9),
+                                        Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceBetween,
+                                          children: [
+                                            Text(
+                                              'Meal Number : 00.0',
+                                              style: TextStyle(
+                                                  fontSize: 16,
+                                                  fontWeight: FontWeight.w400),
+                                            ),
+                                            Text(
+                                              'Deposit : 00.0',
+                                              style: TextStyle(
+                                                  fontSize: 16,
+                                                  fontWeight: FontWeight.w400),
+                                            ),
+                                          ],
+                                        ),
+                                        SizedBox(height: 9),
+                                        Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceBetween,
+                                          children: [
+                                            Text('Total Cost : 00.0',
+                                                style: TextStyle(
+                                                    fontSize: 16,
+                                                    fontWeight:
+                                                        FontWeight.w400)),
+                                            Text('Balance : 00.0',
+                                                style: TextStyle(
+                                                    fontSize: 16,
+                                                    fontWeight:
+                                                        FontWeight.w400)),
+                                          ],
+                                        ),
+                                      ],
+                                    ),
+                                  );
+                                },
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
                 ],
               ),
             ),
@@ -306,7 +395,6 @@ class _HomePageState extends State<HomePage> {
       // TODO floating action button start
       floatingActionButton: SpeedDial(
         icon: Icons.add,
-        activeIcon: Icons.add,
         foregroundColor: CustomColors.iconColor,
         animatedIcon: AnimatedIcons.menu_close,
         backgroundColor: CustomColors.appColor,
@@ -331,8 +419,12 @@ class _HomePageState extends State<HomePage> {
           ),
           SpeedDialChild(
             onTap: () {
-              Navigator.of(context).pushNamed(AddMealCostPage.routeName).then((value) {
-                Provider.of<MealProvider>(context, listen: false).dropdown_items_cost.clear();
+              Navigator.of(context)
+                  .pushNamed(AddMealCostPage.routeName)
+                  .then((value) {
+                Provider.of<MealProvider>(context, listen: false)
+                    .dropdown_items_cost
+                    .clear();
               });
             },
             backgroundColor: CustomColors.appColor,
@@ -346,7 +438,13 @@ class _HomePageState extends State<HomePage> {
           ),
           SpeedDialChild(
             onTap: () {
-              Navigator.of(context).pushNamed(AddMemberMoneyPage.routeName);
+              Navigator.of(context)
+                  .pushNamed(AddMemberMoneyPage.routeName)
+                  .then((value) {
+                Provider.of<MealProvider>(context, listen: false)
+                    .dropdown_items_deposit
+                    .clear();
+              });
             },
             backgroundColor: CustomColors.appColor,
             labelBackgroundColor: CustomColors.appColor,
