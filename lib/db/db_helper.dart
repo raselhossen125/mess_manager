@@ -1,4 +1,4 @@
-// ignore_for_file: unused_local_variable, non_constant_identifier_names
+// ignore_for_file: unused_local_variable, non_constant_identifier_names, equal_keys_in_map
 import 'package:mess_manager/models/register_model.dart';
 import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';
@@ -40,7 +40,12 @@ class DBHelper {
       return RegisterModel.fromMap(mapList.first);
     }
     return RegisterModel(
-        managerName: '', managerEmail: '', password: '', confPassword: '', managerphone: '', manageruniversity: '');
+        managerName: '',
+        managerEmail: '',
+        password: '',
+        confPassword: '',
+        managerphone: '',
+        manageruniversity: '');
   }
 
   static Future<RegisterModel> getLogInPersonByManagerId(int managerId) async {
@@ -48,5 +53,11 @@ class DBHelper {
     final List<Map<String, dynamic>> mapList = (await db.query(tableRegister,
         where: '$tableRegisterColId = ?', whereArgs: [managerId]));
     return RegisterModel.fromMap(mapList.first);
+  }
+
+  static updateManagerInfo(int managerId, String colomName, value) async {
+    final db = await open();
+    db.update(tableRegister, {colomName: value},
+        where: '$tableRegisterColId = ?', whereArgs: [managerId]);
   }
 }

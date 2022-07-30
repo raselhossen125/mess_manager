@@ -1,7 +1,6 @@
 // ignore_for_file: prefer_const_constructors, use_key_in_widget_constructors, prefer_const_literals_to_create_immutables, sized_box_for_whitespace, must_be_immutable, unused_local_variable, unused_field, prefer_final_fields, unnecessary_cast, prefer_interpolation_to_compose_strings
 
 import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_speed_dial/flutter_speed_dial.dart';
 import 'package:mess_manager/models/register_model.dart';
@@ -307,19 +306,17 @@ class _HomePageState extends State<HomePage> {
                         children: [
                           SizedBox(height: 7),
                           Consumer<DBProvider>(
-                            builder: (context, provider, child) {
-                              final length = provider.allMemberList.length;
-                              return Text('Total Member : $length');
-                            }
-                          ),
+                              builder: (context, provider, child) {
+                            final length = provider.allMemberList.length;
+                            return Text('Total Member : $length');
+                          }),
                           Divider(
                             color: Colors.grey,
                           ),
-                          Container(
-                            height: 500,
-                            child: Consumer<DBProvider>(
-                              builder: (context, provider, _) =>
-                                  ListView.builder(
+                          Consumer<DBProvider>(
+                            builder: (context, provider, _) => Container(
+                              height: 500,
+                              child: ListView.builder(
                                 physics: NeverScrollableScrollPhysics(),
                                 itemCount: provider.allMemberList.length,
                                 itemBuilder: (context, index) {

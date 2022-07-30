@@ -6,13 +6,18 @@ import '../models/addMember_models.dart';
 import '../providers/meal_provider.dart';
 import '../untils/custom_colors.dart';
 
-class AddMealListWidget extends StatelessWidget {
+class AddMealListWidget extends StatefulWidget {
   AddMemberModel addMemberModel;
 
   AddMealListWidget({
     required this.addMemberModel,
   });
 
+  @override
+  State<AddMealListWidget> createState() => _AddMealListWidgetState();
+}
+
+class _AddMealListWidgetState extends State<AddMealListWidget> {
   @override
   Widget build(BuildContext context) {
     return Consumer<MealProvider>(
@@ -37,7 +42,7 @@ class AddMealListWidget extends StatelessWidget {
                 ),
                 SizedBox(width: 10),
                 Text(
-                  addMemberModel.name,
+                  widget.addMemberModel.name,
                   style: TextStyle(
                       fontWeight: FontWeight.w400,
                       color: Colors.black,

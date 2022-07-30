@@ -1,4 +1,4 @@
-// ignore_for_file: use_build_context_synchronously, non_constant_identifier_names
+// ignore_for_file: use_build_context_synchronously, non_constant_identifier_names, unused_local_variable
 
 import 'package:flutter/cupertino.dart';
 import 'package:mess_manager/db/member_db_helper.dart';
@@ -13,7 +13,8 @@ class DBProvider extends ChangeNotifier {
   List<AddMemberModel> memberList = [];
   List<AddMemberModel> allMemberList = [];
 
-  Future<bool> addNewRegister(RegisterModel registerModel, BuildContext context) async {
+  Future<bool> addNewRegister(
+      RegisterModel registerModel, BuildContext context) async {
     final rowId = await DBHelper.insertRegister(registerModel);
     if (rowId > 0) {
       Provider.of<MealProvider>(context, listen: false).setManagerId(rowId);
@@ -24,7 +25,8 @@ class DBProvider extends ChangeNotifier {
     return false;
   }
 
-  Future<RegisterModel> getRegisterPersonByGmail(String gmail, BuildContext context) async{
+  Future<RegisterModel> getRegisterPersonByGmail(
+      String gmail, BuildContext context) async {
     return DBHelper.getRegisterPersonByGmail(gmail);
   }
 
@@ -39,24 +41,33 @@ class DBProvider extends ChangeNotifier {
   }
 
   Future<RegisterModel> getLogInPersonByManagerId(BuildContext context) async {
-    int managerId = await Provider.of<MealProvider>(context, listen: false).getManagerId();
+    int managerId =
+        await Provider.of<MealProvider>(context, listen: false).getManagerId();
     return DBHelper.getLogInPersonByManagerId(managerId);
   }
 
-  getAllMemberByManagerId(BuildContext context) async{
-    int managerId = await Provider.of<MealProvider>(context,listen: false).getManagerId();
+  getAllMemberByManagerId(BuildContext context) async {
+    int managerId =
+        await Provider.of<MealProvider>(context, listen: false).getManagerId();
     MemberDbhelper.getAllMemberByManagerId(managerId).then((value) {
       allMemberList = value;
       notifyListeners();
     });
   }
 
-  deleteMember(int id) async{
+  updateManagerInformation(
+      BuildContext context, String colomName, String text) async {
+    int managerId =
+        await Provider.of<MealProvider>(context, listen: false).getManagerId();
+    DBHelper.updateManagerInfo(managerId, colomName, text);
+    notifyListeners();
+  }
+
+  deleteMember(int id) async {
     final rowId = await MemberDbhelper.deleteMember(id);
-    if(rowId>0){
-      allMemberList.removeWhere((element) => element.id==id);
+    if (rowId > 0) {
+      allMemberList.removeWhere((element) => element.id == id);
       notifyListeners();
     }
   }
-
 }
