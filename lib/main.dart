@@ -12,6 +12,7 @@ import 'pages/add_meal_page.dart';
 import 'pages/add_member_money_page.dart';
 import 'pages/add_member_page.dart';
 import 'pages/forgetpassword_page.dart';
+import 'pages/profile_page.dart';
 import 'pages/splashscreen_page.dart';
 import 'providers/db_provider.dart';
 
@@ -20,7 +21,7 @@ void main() {
     MultiProvider(
       providers: [
         ChangeNotifierProvider(create: (context) => MealProvider()),
-        ChangeNotifierProvider(create: (context) => DBProvider()..getAllMemberByManagerId(context)),
+        ChangeNotifierProvider(create: (context) => DBProvider()),
       ],
       child: const MyApp(),
     ),
@@ -63,6 +64,7 @@ class MyApp extends StatelessWidget {
         AddMemberMoneyPage.routeName: (context) => AddMemberMoneyPage(),
         AddMemberPage.routeName: (context) => AddMemberPage(),
         AllMemberPage.routeName: (context) => AllMemberPage(),
+        ProfilePage.routeName: (context) => ProfilePage(),
       },
     );
   }

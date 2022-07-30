@@ -2,6 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:mess_manager/providers/db_provider.dart';
 import 'package:mess_manager/providers/meal_provider.dart';
 import 'package:mess_manager/untils/custom_colors.dart';
 import 'package:provider/provider.dart';
@@ -11,6 +12,7 @@ class AddMealCostPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    Provider.of<DBProvider>(context).getAllMemberByManagerId(context);
     Provider.of<MealProvider>(context).dpDwnControllCost(context);
     return Scaffold(
       backgroundColor: Colors.white.withOpacity(0.9),

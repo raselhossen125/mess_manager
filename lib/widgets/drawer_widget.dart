@@ -8,6 +8,7 @@ import 'package:mess_manager/pages/add_member_page.dart';
 import 'package:mess_manager/pages/all_membe_page.dart';
 import 'package:mess_manager/pages/home_page.dart';
 import 'package:mess_manager/pages/login_page.dart';
+import 'package:mess_manager/pages/profile_page.dart';
 import 'package:mess_manager/untils/custom_colors.dart';
 import 'package:provider/provider.dart';
 import '../models/register_model.dart';
@@ -124,6 +125,16 @@ class DrawerWidget extends StatelessWidget {
                     onPressed: () {
                       Navigator.of(context)
                           .pushReplacementNamed(HomePage.routeName);
+                    },
+                  ),
+                  DrawerListTileWidget(
+                    icon: Icons.person,
+                    text: 'Profile',
+                    onPressed: () {
+                      Navigator.of(context).pushNamed(ProfilePage.routeName).then((value) {
+                        Navigator.of(context)
+                          .pushReplacementNamed(HomePage.routeName);
+                      });
                     },
                   ),
                   DrawerListTileWidget(

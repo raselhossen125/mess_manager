@@ -10,6 +10,8 @@ class DBHelper {
   $tableRegisterColImageUrl text,
   $tableRegisterColName text,
   $tableRegisterColEmail text,
+  $tableRegisterColPhone text,
+  $tableRegisterColUniversity text,
   $tableRegisterColPassword text,
   $tableRegisterColConfPassword text
   )
@@ -38,7 +40,7 @@ class DBHelper {
       return RegisterModel.fromMap(mapList.first);
     }
     return RegisterModel(
-        managerName: '', managerEmail: '', password: '', confPassword: '');
+        managerName: '', managerEmail: '', password: '', confPassword: '', managerphone: '', manageruniversity: '');
   }
 
   static Future<RegisterModel> getLogInPersonByManagerId(int managerId) async {

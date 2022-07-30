@@ -13,6 +13,7 @@ class AddMealPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    Provider.of<DBProvider>(context).getAllMemberByManagerId(context);
     return Scaffold(
       backgroundColor: Colors.white.withOpacity(0.9),
       appBar: AppBar(

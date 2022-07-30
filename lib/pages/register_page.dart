@@ -30,6 +30,8 @@ class _RegisterPageState extends State<RegisterPage> {
 
   final nameController = TextEditingController();
   final emailController = TextEditingController();
+  final phoneController = TextEditingController();
+  final universityController = TextEditingController();
   final passwordController = TextEditingController();
   final conformPasswordController = TextEditingController();
 
@@ -122,7 +124,7 @@ class _RegisterPageState extends State<RegisterPage> {
                             Icons.person,
                             color: CustomColors.appColor,
                           ),
-                          hintText: "Manager's Name",
+                          hintText: "Manager Name",
                           hintStyle: TextStyle(
                               color: Colors.grey,
                               fontWeight: FontWeight.normal),
@@ -159,7 +161,75 @@ class _RegisterPageState extends State<RegisterPage> {
                             Icons.email,
                             color: CustomColors.appColor,
                           ),
-                          hintText: "Manager's Email",
+                          hintText: "Manager Email",
+                          hintStyle: TextStyle(
+                              color: Colors.grey,
+                              fontWeight: FontWeight.normal),
+                          border: OutlineInputBorder(
+                            borderSide: BorderSide.none,
+                            borderRadius: BorderRadius.circular(20),
+                          ),
+                        ),
+                        validator: (value) {
+                          if (value!.isEmpty || value == null) {
+                            return 'Email can not be empty';
+                          } else
+                            null;
+                          return null;
+                        },
+                      ),
+                      SizedBox(height: 15),
+                      TextFormField(
+                        controller: phoneController,
+                        cursorColor: CustomColors.appColor,
+                        keyboardType: TextInputType.number,
+                        style: TextStyle(
+                            color: CustomColors.appColor,
+                            fontWeight: FontWeight.w500),
+                        decoration: InputDecoration(
+                          filled: true,
+                          fillColor: Colors.white,
+                          contentPadding: EdgeInsets.only(left: 10),
+                          focusColor: Colors.white,
+                          prefixIcon: Icon(
+                            Icons.phone,
+                            color: CustomColors.appColor,
+                          ),
+                          hintText: "Manager Phone",
+                          hintStyle: TextStyle(
+                              color: Colors.grey,
+                              fontWeight: FontWeight.normal),
+                          border: OutlineInputBorder(
+                            borderSide: BorderSide.none,
+                            borderRadius: BorderRadius.circular(20),
+                          ),
+                        ),
+                        validator: (value) {
+                          if (value!.isEmpty || value == null) {
+                            return 'Phone can not be empty';
+                          } else
+                            null;
+                          return null;
+                        },
+                      ),
+                      SizedBox(height: 15),
+                      TextFormField(
+                        controller: universityController,
+                        cursorColor: CustomColors.appColor,
+                        keyboardType: TextInputType.streetAddress,
+                        style: TextStyle(
+                            color: CustomColors.appColor,
+                            fontWeight: FontWeight.w500),
+                        decoration: InputDecoration(
+                          filled: true,
+                          fillColor: Colors.white,
+                          contentPadding: EdgeInsets.only(left: 10),
+                          focusColor: Colors.white,
+                          prefixIcon: Icon(
+                            Icons.school,
+                            color: CustomColors.appColor,
+                          ),
+                          hintText: "Manager University",
                           hintStyle: TextStyle(
                               color: Colors.grey,
                               fontWeight: FontWeight.normal),
@@ -351,6 +421,8 @@ class _RegisterPageState extends State<RegisterPage> {
           managerImageUrl: imagePath,
           managerName: nameController.text,
           managerEmail: emailController.text,
+          managerphone: phoneController.text,
+          manageruniversity: universityController.text,
           password: passwordController.text,
           confPassword: conformPasswordController.text,
         );

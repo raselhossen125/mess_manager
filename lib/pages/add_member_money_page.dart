@@ -6,11 +6,14 @@ import 'package:mess_manager/providers/meal_provider.dart';
 import 'package:mess_manager/untils/custom_colors.dart';
 import 'package:provider/provider.dart';
 
+import '../providers/db_provider.dart';
+
 class AddMemberMoneyPage extends StatelessWidget {
   static const routeName = '/addMemberMoney-page';
 
   @override
   Widget build(BuildContext context) {
+    Provider.of<DBProvider>(context).getAllMemberByManagerId(context);
     Provider.of<MealProvider>(context).dpDwnControllDeposit(context);
     return Scaffold(
       backgroundColor: Colors.white.withOpacity(0.9),
