@@ -142,6 +142,7 @@ class _ProfilePageState extends State<ProfilePage> {
                             trailing: IconButton(
                               onPressed: () {
                                 showConfirmationDialog(
+                                    'Updated Name',
                                     Icons.person,
                                     context,
                                     'Edit Manager Name',
@@ -169,6 +170,7 @@ class _ProfilePageState extends State<ProfilePage> {
                             trailing: IconButton(
                               onPressed: () {
                                 showConfirmationDialog(
+                                  'Updated Email',
                                   Icons.email,
                                   context,
                                   'Edit Manager Email',
@@ -197,6 +199,7 @@ class _ProfilePageState extends State<ProfilePage> {
                             trailing: IconButton(
                               onPressed: () {
                                 showConfirmationDialog(
+                                  'Updated Phone',
                                   Icons.phone,
                                   context,
                                   'Edit Manager Phone',
@@ -225,6 +228,7 @@ class _ProfilePageState extends State<ProfilePage> {
                             trailing: IconButton(
                               onPressed: () {
                                 showConfirmationDialog(
+                                  'Updated University',
                                   Icons.school,
                                   context,
                                   'Edit Manager University',
@@ -260,6 +264,7 @@ class _ProfilePageState extends State<ProfilePage> {
   }
 
   void showConfirmationDialog(
+    String hintText,
     IconData icon,
     BuildContext context,
     String title,
@@ -271,10 +276,10 @@ class _ProfilePageState extends State<ProfilePage> {
       builder: (context) => AlertDialog(
         title: Text(title),
         content: TextFormField(
-          // controller: ValueController,
+          controller: ValueController,
           cursorColor: CustomColors.appColor,
           keyboardType: TextInputType.emailAddress,
-          initialValue: value,
+          // initialValue: value,
           style: TextStyle(
               color: CustomColors.appColor, fontWeight: FontWeight.w500),
           decoration: InputDecoration(
@@ -282,6 +287,9 @@ class _ProfilePageState extends State<ProfilePage> {
             fillColor: Colors.white.withOpacity(0.9),
             contentPadding: EdgeInsets.only(left: 10),
             focusColor: Colors.white,
+            hintText: hintText,
+                  hintStyle: TextStyle(
+                      color: Colors.grey, fontWeight: FontWeight.normal),
             prefixIcon: Icon(
               icon,
               color: CustomColors.appColor,
